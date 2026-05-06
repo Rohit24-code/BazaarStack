@@ -6,6 +6,8 @@ import morgan from "morgan";
 import { ok } from "./utils/envelope";
 import { notFound } from "./middleware/notFound";
 import { errorHandler } from "./middleware/errorhandler";
+import { clerkMiddleware } from "@clerk/express";
+import { authRouter } from "./routes/auth.routes";
 
 const app = express();
 const PORT = process.env.PORT || 8080;
@@ -23,6 +25,8 @@ app.use(
 
 app.use(express.json());
 app.use(morgan("dev"));
+app.use(clerkMiddleware());
+
 app.get("/health", (req, res) => {
   res.status(200).json(
     ok({
@@ -32,6 +36,9 @@ app.get("/health", (req, res) => {
 });
 app.use(notFound);
 app.use(errorHandler);
+
+// auth route
+app.use("/auth", authRouter);
 
 async function startServer() {
   try {
