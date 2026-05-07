@@ -34,11 +34,12 @@ app.get("/health", (req, res) => {
     }),
   );
 });
-app.use(notFound);
-app.use(errorHandler);
 
 // auth route
 app.use("/auth", authRouter);
+
+app.use(notFound);
+app.use(errorHandler);
 
 async function startServer() {
   try {

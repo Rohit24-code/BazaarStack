@@ -5,16 +5,22 @@ import { Navigate, Outlet } from "react-router-dom"
 function ProtectedLayout() {
   const { isLoaded, isSignedIn } = useAuth()
   const { isBootStrapped, status } = useAuthStore()
-
   if (!isLoaded) return null
 
-  if (isSignedIn && (!isBootStrapped || status === "loading")) {
+  if (!isLoaded || (isSignedIn && (!isBootStrapped || status === "loading"))) {
     return null
   }
 
-  if (isSignedIn) {
-    return <Navigate to={"/profile"} replace />
+  if (!isSignedIn) {
+    return (
+      <Navigate
+        to="/sign-in"
+        replace
+        state={{ from: `${location.pathname}${location.search}` }}
+      />
+    )
   }
+
   return <Outlet />
 }
 

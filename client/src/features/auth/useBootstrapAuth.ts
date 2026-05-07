@@ -28,6 +28,7 @@ export function useBootStrapAuth() {
         setLoading()
         await syncUser()
         const data = await getMe()
+        console.log(data, "testing data")
         setUser(data?.user)
       } catch (error) {
         const message =
@@ -35,5 +36,7 @@ export function useBootStrapAuth() {
         setError(message)
       }
     }
+
+    run()
   }, [isLoaded, isSignedIn, clearAuth, setError, setLoading, setUser])
 }

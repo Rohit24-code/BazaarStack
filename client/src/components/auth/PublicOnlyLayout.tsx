@@ -5,22 +5,14 @@ import { Navigate, Outlet, useLocation } from "react-router-dom"
 function PublicOnlyLayout() {
   const { isLoaded, isSignedIn } = useAuth()
   const { isBootStrapped, status } = useAuthStore()
-  const location = useLocation()
 
   if (!isLoaded || (isSignedIn && (!isBootStrapped || status === "loading")))
     return null
 
-  if (!isSignedIn) {
-    return (
-      <Navigate
-        to={"/sign-in"}
-        replace
-        state={{
-          from: `${location.pathname}${location.search}`,
-        }}
-      />
-    )
+  if (isSignedIn) {
+    return <Navigate to="/profile" replace />
   }
+
   return <Outlet />
 }
 
