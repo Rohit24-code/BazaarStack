@@ -45,7 +45,7 @@ export const createUpdateUser = asyncHandler(async (req, res) => {
       ? "admin"
       : shouldBeAdmin
         ? "admin"
-        : existingUser.role || "user";
+        : existingUser?.role || "user";
 
   const newlyCreateDbUser = await User.findOneAndUpdate(
     {
@@ -92,11 +92,13 @@ export const getUser = asyncHandler(async (req, res, next) => {
 
   res.status(200).json(
     ok({
-      id: dbUser._id,
-      clerkUserId: dbUser.clerkUserId,
-      email: dbUser.email,
-      name: dbUser.name,
-      role: dbUser.role,
+      user: {
+        id: dbUser._id,
+        clerkUserId: dbUser.clerkUserId,
+        email: dbUser.email,
+        name: dbUser.name,
+        role: dbUser.role,
+      },
     }),
   );
 });

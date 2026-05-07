@@ -45,7 +45,7 @@ function getErrorMsg(error: unknown) {
   return "something went wrong ! please try again."
 }
 
-export async function apiGet<T>(url: string, config: AxiosRequestConfig) {
+export async function apiGet<T>(url: string, config?: AxiosRequestConfig) {
   try {
     const response = await api.get<ApiEnvelop<T>>(url, config)
 
