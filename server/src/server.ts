@@ -8,6 +8,7 @@ import { notFound } from "./middleware/notFound";
 import { errorHandler } from "./middleware/errorhandler";
 import { clerkMiddleware } from "@clerk/express";
 import { authRouter } from "./routes/auth.routes";
+import { productRouter } from "./routes/product.routes";
 
 const app = express();
 const PORT = process.env.PORT || 8080;
@@ -37,6 +38,9 @@ app.get("/health", (req, res) => {
 
 // auth route
 app.use("/auth", authRouter);
+
+// admin route
+app.use("/admin", productRouter);
 
 app.use(notFound);
 app.use(errorHandler);
