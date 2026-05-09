@@ -8,13 +8,7 @@ type RoleGuardLayoutProps = {
 
 const RoleGuardLayout = ({ allow }: RoleGuardLayoutProps) => {
   const { isBootStrapped, status, user } = useAuthStore()
-  console.log(
-    isBootStrapped,
-    user,
-    status,
-    allow,
-    "isBootStrapped,user,status,allow"
-  )
+
   if (!isBootStrapped || status === "loading") return null
 
   if (!user) {

@@ -35,6 +35,6 @@ productRouter.post("/product", upload.array("images", 10), addProduct);
 
 productRouter.put("/product/:id", updateProduct);
 
-productRouter.get("/product", getProducts);
+productRouter.get("/products", getProducts);
 
 productRouter.get("/product/:id", getSingleProduct);
