@@ -33,7 +33,8 @@ export const postCategories = asyncHandler(async (req, res, next) => {
 export const updateCategory = asyncHandler(async (req, res, next) => {
   const { body } = req;
 
-  const name = body;
+  const { name } = body;
+
   requireText(String(name)?.trim(), "Category name is required");
 
   const extractCategoryId = req.params.id as string;
