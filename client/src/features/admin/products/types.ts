@@ -54,6 +54,8 @@ export type CreateProductBody = {
   salePercentage: number
   stock: number
   status: ProductStatus
+  existingImages?: ProductImage[]
+  coverImagePublicId?: string
 }
 
 export type UpdateProductBody = {

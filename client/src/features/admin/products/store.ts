@@ -20,7 +20,7 @@ type ProductStore = {
   refreshAll: () => void
   closeEditDialog: () => void
   setCategoryDialogOpen: (data: boolean) => void
-  setProductDialogOpen: (data: boolean) => void
+  setProductDialogToogle: (data: boolean) => void
 }
 
 export const useProductStore = create<ProductStore>((set, get) => ({
@@ -41,8 +41,14 @@ export const useProductStore = create<ProductStore>((set, get) => ({
     set({ productDialogOpen: true, editingProduct: product }),
   closeEditDialog: () =>
     set({ productDialogOpen: false, editingProduct: null }),
-  setCategoryDialogOpen: (open: boolean) => set({ categoryDialogOpen: open }),
-  setProductDialogOpen: (open: boolean) => set({ productDialogOpen: open }),
+  setCategoryDialogOpen: (open: boolean) => {
+    if (open) {
+      get().fetchCategories()
+    }
+
+    return set({ categoryDialogOpen: open })
+  },
+  setProductDialogToogle: (open: boolean) => set({ productDialogOpen: open }),
   fetchProducts: async (searchValue?: string) => {
     set({ loading: true })
 

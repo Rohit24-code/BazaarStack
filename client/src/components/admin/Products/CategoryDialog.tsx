@@ -25,10 +25,8 @@ export function CategoryDialog() {
   const {
     categoryDialogOpen: open,
     setCategoryDialogOpen: onOpenChange,
-    refreshAll: onSaved,
+    refreshAll,
   } = useProductStore()
-
-  console.log(open, "openopen")
 
   const { categories } = useProductStore()
 
@@ -46,7 +44,7 @@ export function CategoryDialog() {
 
       setName("")
       setEditingCategory(null)
-      await onSaved()
+      await refreshAll()
     } finally {
       setSaving(false)
     }
@@ -57,7 +55,7 @@ export function CategoryDialog() {
     setName(getCurrentCategory.name)
   }
 
-  function handleClose(nextOpen: boolean) {
+  function handleToggle(nextOpen: boolean) {
     if (!nextOpen) {
       setName("")
       setEditingCategory(null)
@@ -67,7 +65,7 @@ export function CategoryDialog() {
   }
 
   return (
-    <Dialog open={open} onOpenChange={handleClose}>
+    <Dialog open={open} onOpenChange={handleToggle}>
       <DialogContent className={categoryStyles.dialogContentClass}>
         <DialogHeader>
           <DialogTitle>Manage Catgories</DialogTitle>

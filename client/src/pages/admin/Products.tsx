@@ -1,9 +1,8 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { styles } from "./constants"
 import { ProductToolbar } from "@/components/admin/Products/ProductToolbar"
-import { useAdminProducts } from "@/features/admin/products/hooks/useAdminProducts"
 import { CategoryDialog } from "@/components/admin/Products/CategoryDialog"
-import { useProductStore } from "@/features/admin/products/store"
+import { ProductDialog } from "@/components/admin/Products/ProductDialog"
 
 function AdminProducts() {
   return (
@@ -17,6 +16,7 @@ function AdminProducts() {
         <CardContent>Table</CardContent>
 
         <CategoryDialog />
+        <ProductDialog />
       </Card>
     </div>
   )
