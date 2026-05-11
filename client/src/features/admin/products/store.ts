@@ -33,8 +33,11 @@ export const useProductStore = create<ProductStore>((set, get) => ({
   editingProduct: null,
   setSearch: (search) => set({ search }),
   setLoading: () => set({ loading: true }),
-  openCreateDialog: () =>
-    set({ productDialogOpen: true, editingProduct: null }),
+  openCreateDialog: () => {
+    get().fetchCategories()
+
+    set({ productDialogOpen: true, editingProduct: null })
+  },
   closeProductDialog: () =>
     set({ productDialogOpen: false, editingProduct: null }),
   openEditDialog: (product) =>

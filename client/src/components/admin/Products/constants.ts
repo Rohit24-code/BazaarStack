@@ -95,3 +95,32 @@ export const imageStyles = {
   removeIconClass: cn("h-4 w-4"),
   fileNameClass: cn("p-2 text-xs text-muted-foreground"),
 }
+
+// for table styles
+export const tableStyles = {
+  wrapperClass: cn("overflow-x-auto rounded-xl border border-border"),
+  tableHeaderClass: cn("bg-muted/50"),
+  imageHeadClass: cn("w-[90px]"),
+  editHeadClass: cn("w-[80px] text-right"),
+  stateCellClass: cn("h-28 text-center text-muted-foreground"),
+  imageBoxClass: cn(
+    "h-14 w-14 overflow-hidden rounded-lg border border-border bg-muted"
+  ),
+  imageClass: cn("h-full w-full object-cover"),
+  titleWrapClass: cn("space-y-1"),
+  titleClass: cn("font-medium text-foreground"),
+  descriptionClass: cn("line-clamp-1 text-xs text-muted-foreground"),
+  editCellWrapClass: cn("flex justify-end"),
+  editIconClass: cn("h-4 w-4"),
+}
+
+export const TABLE_HEADERS = [
+  { label: "Image", className: tableStyles.imageHeadClass },
+  { label: "Title" },
+  { label: "Brand" },
+  { label: "Category" },
+  { label: "Price" },
+  { label: "Status" },
+  { label: "Stock" },
+  { label: "Edit", className: tableStyles.editHeadClass },
+]

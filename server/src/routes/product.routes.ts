@@ -31,10 +31,10 @@ productRouter.put("/categories/:id", updateCategory);
 
 // product
 
-productRouter.post("/product", upload.array("images", 10), addProduct);
+productRouter.post("/products", upload.array("images", 10), addProduct);
 
-productRouter.put("/product/:id", updateProduct);
+productRouter.put("/product/:id", upload.array("images", 10), updateProduct);
 
 productRouter.get("/products", getProducts);
 
-productRouter.get("/product/:id", getSingleProduct);
+productRouter.get("/products/:id", getSingleProduct);
