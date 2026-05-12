@@ -1,6 +1,6 @@
 import { Router } from "express";
-import { requireAuth } from "../middleware/auth";
-import { createUpdateUser, getUser } from "../controllers/auth.controllers";
+import { requireAuth } from "../../middleware/auth";
+import { createUpdateUser, getUser } from "../../controllers/auth.controllers";
 
 export const authRouter = Router();
 

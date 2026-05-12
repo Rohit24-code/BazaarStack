@@ -1,4 +1,5 @@
 import mongoose, { Schema } from "mongoose";
+import { ProductType } from "../types/Product.types";
 
 const ImageSchema = new mongoose.Schema(
   {
@@ -91,4 +92,5 @@ const ProductSchema = new mongoose.Schema(
 );
 
 export const Product =
-  mongoose.models.Product || mongoose.model("Product", ProductSchema);
+  mongoose.models.Product ||
+  mongoose.model<ProductType>("Product", ProductSchema);
