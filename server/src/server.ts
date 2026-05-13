@@ -7,8 +7,12 @@ import { ok } from "./utils/envelope";
 import { notFound } from "./middleware/notFound";
 import { errorHandler } from "./middleware/errorhandler";
 import { clerkMiddleware } from "@clerk/express";
-import { authRouter } from "./routes/auth.routes";
-import { productRouter } from "./routes/product.routes";
+import { authRouter } from "./routes/auth/auth.routes";
+import { productRouter } from "./routes/admin/product.routes";
+import { customerAddressRouter } from "./routes/customer/address.routes";
+import { adminPromoRouter } from "./routes/admin/promo.routes";
+import { customerProductRouter } from "./routes/customer/product.routes";
+import { customerPromoRouter } from "./routes/customer/promo.routes";
 
 const app = express();
 const PORT = process.env.PORT || 8080;
@@ -41,6 +45,12 @@ app.use("/auth", authRouter);
 
 // admin route
 app.use("/admin", productRouter);
+app.use("/admin", adminPromoRouter);
+
+// customer route
+app.use("/customer", customerProductRouter);
+app.use("/customer", customerAddressRouter);
+app.use("/customer", customerPromoRouter);
 
 app.use(notFound);
 app.use(errorHandler);

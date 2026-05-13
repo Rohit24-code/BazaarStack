@@ -1,4 +1,3 @@
-import type { NavItem } from "./types"
 import {
   mobileNavLoginPages,
   mobileNavLogOutPages,
@@ -19,6 +18,7 @@ import { Button } from "@/components/ui/button"
 import { Link } from "react-router-dom"
 import { Separator } from "@/components/ui/separator"
 import DrawerSection from "./DrawerSection"
+import type { NavItem } from "@/components/common/types"
 
 type Props = {
   isSignedIn: boolean

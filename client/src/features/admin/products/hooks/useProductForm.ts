@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import type { Product, ProductFormState, ProductImage } from "./types"
+import type { Product, ProductFormState, ProductImage } from "../types"
 import { createAdminProduct, updateAdminProduct } from "../api"
 import { useProductStore } from "../store"
 
@@ -66,7 +66,7 @@ export function useProductForm({ product }: AppProps) {
   const onClose = () => setProductDialogToogle(false)
 
   function toggleSize(size: string) {
-    setForm((prev) => ({
+    setForm((prev: ProductFormState) => ({
       ...prev,
       sizes: prev.sizes.includes(size)
         ? prev.sizes.filter((item) => item !== size)

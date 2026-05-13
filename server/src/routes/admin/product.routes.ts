@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { requireAdmin, requireAuth } from "../middleware/auth";
+import { requireAdmin, requireAuth } from "../../middleware/auth";
 import {
   addProduct,
   getProducts,
@@ -8,11 +8,11 @@ import {
   updateCategory,
   updateProduct,
   getSingleProduct,
-} from "../controllers/product.controllers";
+} from "../../controllers/product.controllers";
 import multer from "multer";
 
 const upload = multer({
-  storage: multer.memoryStorage(),
+  storage: multer.memoryStorage(), // keep file in ram instead of writing to disk
   limits: {
     fieldSize: 1024 * 1024 * 5,
     files: 10,
@@ -31,10 +31,10 @@ productRouter.put("/categories/:id", updateCategory);
 
 // product
 
-productRouter.post("/product", upload.array("images", 10), addProduct);
+productRouter.post("/products", upload.array("images", 10), addProduct);
 
-productRouter.put("/product/:id", updateProduct);
+productRouter.put("/product/:id", upload.array("images", 10), updateProduct);
 
 productRouter.get("/products", getProducts);
 
-productRouter.get("/product/:id", getSingleProduct);
+productRouter.get("/products/:id", getSingleProduct);

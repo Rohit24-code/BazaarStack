@@ -30,6 +30,8 @@ import { productDialogStyles } from "./constants"
 import { useProductStore } from "@/features/admin/products/store"
 import { useProductForm } from "@/features/admin/products/hooks/useProductForm"
 import { ColorPicker } from "./ColorPicker"
+import { SizeSelector } from "./SizePicker"
+import { ImagePicker } from "./ImagePicker"
 
 export function ProductDialog() {
   const {
@@ -40,6 +42,7 @@ export function ProductDialog() {
     refreshAll,
     editingProduct,
   } = useProductStore()
+
   const {
     form,
     saving,
@@ -57,7 +60,7 @@ export function ProductDialog() {
   return (
     <Dialog
       open={productDialogOpen}
-      onOpenChange={() => setProductDialogToogle(true)}
+      onOpenChange={() => setProductDialogToogle(!productDialogOpen)}
     >
       <DialogContent className={productDialogStyles.dialogContentClass}>
         <DialogHeader>
@@ -188,24 +191,24 @@ export function ProductDialog() {
             </div>
           </div>
 
-          {/* <div className={productDialogStyles.sectionGridClass}> */}
-          <ColorPicker
-            colors={form.colors}
-            onAdd={addColor}
-            onRemove={removeColor}
-          />
+          <div className={productDialogStyles.sectionGridClass}>
+            <ColorPicker
+              colors={form.colors}
+              onAdd={addColor}
+              onRemove={removeColor}
+            />
 
-          {/* <SizeSelector selectedSizes={form.sizes} onToggle={toggleSize} />
-          </div> */}
+            <SizeSelector selectedSizes={form.sizes} onToggle={toggleSize} />
+          </div>
 
-          {/* <ImagePicker
+          <ImagePicker
             existingImages={form.existingImages}
             newFiles={form.newFiles}
             coverImagePublicId={form.coverImagePublicId}
             onFilesAdd={addFiles}
             onExistingRemove={removeExistingImage}
             onCoverImageChange={changeCoverImage}
-          /> */}
+          />
 
           <div className={productDialogStyles.actionsRowClass}>
             <Button

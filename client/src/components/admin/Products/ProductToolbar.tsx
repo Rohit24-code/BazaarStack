@@ -8,10 +8,10 @@ export function ProductToolbar() {
   const {
     search,
     setCategoryDialogOpen: onOpenChange,
-
     openCreateDialog: onAddProduct,
     setSearch,
   } = useProductStore()
+
   return (
     <div className={styles.wrapperClass}>
       <div className={styles.searchWrapClass}>

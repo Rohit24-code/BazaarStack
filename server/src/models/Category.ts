@@ -1,4 +1,5 @@
-import mongoose from "mongoose";
+import mongoose, { HydratedDocument } from "mongoose";
+import { CategoryType } from "../types/Category.types";
 
 const CategorySchema = new mongoose.Schema(
   {
@@ -13,4 +14,5 @@ const CategorySchema = new mongoose.Schema(
 );
 
 export const Category =
-  mongoose.models.Category || mongoose.model("Category", CategorySchema);
+  mongoose.models.Category ||
+  mongoose.model<CategoryType>("Category", CategorySchema);

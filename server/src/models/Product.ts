@@ -1,4 +1,5 @@
 import mongoose, { Schema } from "mongoose";
+import { ProductType } from "../types/Product.types";
 
 const ImageSchema = new mongoose.Schema(
   {
@@ -7,7 +8,7 @@ const ImageSchema = new mongoose.Schema(
       required: true,
       trim: true,
     },
-    public_id: {
+    publicId: {
       type: String,
       required: true,
       trim: true,
@@ -24,11 +25,6 @@ const ImageSchema = new mongoose.Schema(
 
 const ProductSchema = new mongoose.Schema(
   {
-    name: {
-      type: String,
-      required: true,
-      trim: true,
-    },
     title: {
       type: String,
       required: true,
@@ -44,16 +40,16 @@ const ProductSchema = new mongoose.Schema(
       required: true,
       min: 0,
     },
-    image: {
+    images: {
       type: [ImageSchema],
       default: [],
     },
-    color: {
+    colors: {
       type: [String],
       required: true,
       default: [],
     },
-    size: {
+    sizes: {
       type: [String],
       required: true,
       default: [],
@@ -96,4 +92,5 @@ const ProductSchema = new mongoose.Schema(
 );
 
 export const Product =
-  mongoose.models.Product || mongoose.model("Product", ProductSchema);
+  mongoose.models.Product ||
+  mongoose.model<ProductType>("Product", ProductSchema);
