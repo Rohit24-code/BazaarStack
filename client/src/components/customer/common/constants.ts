@@ -1,6 +1,7 @@
 import { Heart, LogIn, LogOut, ShoppingBag, User } from "lucide-react"
-import type { NavItem } from "./types"
+
 import { cn } from "@/lib/utils"
+import type { NavItem } from "@/components/common/types"
 
 export const navPages: Record<string, NavItem> = {
   collections: {

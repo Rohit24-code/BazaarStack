@@ -42,6 +42,7 @@ export function ProductDialog() {
     refreshAll,
     editingProduct,
   } = useProductStore()
+
   const {
     form,
     saving,
