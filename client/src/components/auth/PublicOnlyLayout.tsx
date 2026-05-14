@@ -1,15 +1,20 @@
 import { useAuthStore } from "@/features/auth/store"
 import { useAuth } from "@clerk/react"
 import { Navigate, Outlet, useLocation } from "react-router-dom"
+import Loader from "../common/Loader"
 
 function PublicOnlyLayout() {
   const { isLoaded, isSignedIn } = useAuth()
   const { isBootStrapped, status } = useAuthStore()
+  const location = useLocation()
 
   if (!isLoaded || (isSignedIn && (!isBootStrapped || status === "loading")))
-    return null
+    return <Loader />
 
-  if (isSignedIn) {
+  if (
+    isSignedIn &&
+    (location?.pathname === "/sign-in" || location?.pathname === "/sign-up")
+  ) {
     return <Navigate to="/profile" replace />
   }
 

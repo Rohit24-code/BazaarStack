@@ -9,10 +9,11 @@ import CustomerProfile from "./pages/customer/Profile"
 import RoleGuardLayout from "./components/auth/RoleGuardLayout"
 import AdminDashboard from "./pages/admin/Dashboard"
 import AdminLayout from "./components/layout/AdminLayout"
-import AdminCoupons from "./pages/admin/Coupons"
+import AdminCoupons from "./pages/admin/Promos"
 import AdminSettings from "./pages/admin/Settings"
 import AdminOrders from "./pages/admin/Orders"
 import AdminProducts from "./pages/admin/Products"
+import Collections from "./pages/customer/Collections"
 
 export const router = createBrowserRouter([
   {
@@ -33,6 +34,10 @@ export const router = createBrowserRouter([
           {
             path: "sign-up/*",
             element: <SignUpPage />,
+          },
+          {
+            path: "collections",
+            element: <Collections />,
           },
         ],
       },

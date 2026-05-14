@@ -1,59 +1,90 @@
-import { TABLE_HEADERS, tableStyles } from "./constants"
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table"
+import { tableStyles } from "./constants"
 import { getCoverImage } from "@/features/admin/products/hooks/useProductForm"
 import { useProductStore } from "@/features/admin/products/store"
-import { ProductTableRow } from "./ProductTableRow"
+import { DataTable, type ColumnDef } from "@/components/ui/DataTable"
+import type { Product } from "@/features/admin/products/types"
+import { Badge } from "@/components/ui/badge"
+import { Button } from "@/components/ui/button"
+import { Pencil } from "lucide-react"
+
+const useProductColumns = (): ColumnDef<Product>[] => {
+  const { openEditDialog: onEdit } = useProductStore()
+
+  return [
+    {
+      header: "Image",
+      render: (product) => {
+        const cover = getCoverImage(product.images)
+        return (
+          <div className={tableStyles.imageBoxClass}>
+            {cover ? (
+              <img
+                src={cover.url}
+                alt={product.title}
+                className={tableStyles.imageClass}
+              />
+            ) : null}
+          </div>
+        )
+      },
+    },
+    {
+      header: "Title",
+      render: (product) => (
+        <div className={tableStyles.titleWrapClass}>
+          <span className={tableStyles.titleClass}>{product.title}</span>
+        </div>
+      ),
+    },
+    {
+      header: "Brand",
+      accessorKey: "brand",
+    },
+    {
+      header: "Category",
+      render: (product) => product.category?.name,
+    },
+    {
+      header: "Price",
+      accessorKey: "price",
+    },
+    {
+      header: "Status",
+      render: (product) => (
+        <Badge variant={product.status === "active" ? "default" : "secondary"}>
+          {product.status}
+        </Badge>
+      ),
+    },
+    {
+      header: "Stock",
+      accessorKey: "stock",
+    },
+    {
+      header: "Edit",
+      render: (product) => (
+        <div className={tableStyles.editCellWrapClass}>
+          <Button size="icon" variant="ghost" onClick={() => onEdit(product)}>
+            <Pencil className={tableStyles.editIconClass} />
+          </Button>
+        </div>
+      ),
+    },
+  ]
+}
 
 export function ProductTable() {
-  const { openEditDialog: onEdit, products, loading } = useProductStore()
-
-  const renderState = (message: string) => (
-    <TableRow>
-      <TableCell
-        colSpan={TABLE_HEADERS.length}
-        className={tableStyles.stateCellClass}
-      >
-        {message}
-      </TableCell>
-    </TableRow>
-  )
+  const { products, loading } = useProductStore()
+  const columns = useProductColumns()
 
   return (
-    <div className={tableStyles.wrapperClass}>
-      <Table>
-        <TableHeader className={tableStyles.tableHeaderClass}>
-          <TableRow>
-            {TABLE_HEADERS.map((header) => (
-              <TableHead key={header.label} className={header.className}>
-                {header.label}
-              </TableHead>
-            ))}
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {loading
-            ? renderState("Loading Products...")
-            : products.length === 0
-              ? renderState("No products found!!!")
-              : products.map((product) => {
-                  const cover = getCoverImage(product.images)
-                  return (
-                    <ProductTableRow
-                      key={product._id}
-                      product={product}
-                      onEdit={() => onEdit(product)}
-                    />
-                  )
-                })}
-        </TableBody>
-      </Table>
-    </div>
+    <DataTable
+      wrapClassName={tableStyles.wrapperClass}
+      columns={columns}
+      data={products}
+      loading={loading}
+      loadingMessage="Loading Products..."
+      emptyMessage="No products found!!!"
+    />
   )
 }

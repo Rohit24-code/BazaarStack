@@ -13,5 +13,5 @@ adminPromoRouter.use(requireAdmin);
 
 adminPromoRouter.get("/promos", getPromoController);
 adminPromoRouter.post("/promos", postPromoController);
-adminPromoRouter.put("/promos/:promoId", updatePromoController);
+adminPromoRouter.patch("/promos/:promoId", updatePromoController);
 adminPromoRouter.delete("/promos/:promoId", deletePromoController);

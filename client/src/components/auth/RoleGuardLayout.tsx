@@ -1,6 +1,7 @@
 import { useAuthStore } from "@/features/auth/store"
 import type { UserRole } from "@/lib/types"
 import { Navigate, Outlet } from "react-router-dom"
+import Loader from "../common/Loader"
 
 type RoleGuardLayoutProps = {
   allow: UserRole[]
@@ -9,7 +10,7 @@ type RoleGuardLayoutProps = {
 const RoleGuardLayout = ({ allow }: RoleGuardLayoutProps) => {
   const { isBootStrapped, status, user } = useAuthStore()
 
-  if (!isBootStrapped || status === "loading") return null
+  if (!isBootStrapped || status === "loading") return <Loader />
 
   if (!user) {
     return <Navigate to={"/sign-in"} replace />

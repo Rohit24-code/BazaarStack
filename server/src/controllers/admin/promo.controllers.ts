@@ -137,7 +137,7 @@ export const deletePromoController = asyncHandler(async (req, res) => {
 
   requireFound(promo, "Promo not found", 404);
 
-  await promo.delete();
+  await promo.deleteOne();
 
   res.json(
     ok({
