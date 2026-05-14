@@ -8,9 +8,17 @@ import { notFound } from "./middleware/notFound";
 import { errorHandler } from "./middleware/errorhandler";
 import { clerkMiddleware } from "@clerk/express";
 import { authRouter } from "./routes/auth/auth.routes";
+import { adminDashboardRouter } from "./routes/admin/dashboard.routes";
 import { productRouter } from "./routes/admin/product.routes";
-import { customerAddressRouter } from "./routes/customer/address.routes";
 import { adminPromoRouter } from "./routes/admin/promo.routes";
+import { adminSettingsRouter } from "./routes/admin/setting.routes";
+import { adminOrderRouter } from "./routes/admin/orders.routes";
+import { customerAddressRouter } from "./routes/customer/address.routes";
+import { customerCartWishlistRouter } from "./routes/customer/cartWishlist.routes";
+import { customerCheckoutRouter } from "./routes/customer/checkout.routes";
+import { customerCheckoutWithPointsRouter } from "./routes/customer/checkoutWithPoints.routes";
+import { customerHomeRouter } from "./routes/customer/home.routes";
+import { customerOrderRouter } from "./routes/customer/orders.routes";
 import { customerProductRouter } from "./routes/customer/product.routes";
 import { customerPromoRouter } from "./routes/customer/promo.routes";
 
@@ -44,12 +52,20 @@ app.get("/health", (req, res) => {
 app.use("/auth", authRouter);
 
 // admin route
+app.use("/admin", adminDashboardRouter);
 app.use("/admin", productRouter);
 app.use("/admin", adminPromoRouter);
+app.use("/admin", adminSettingsRouter);
+app.use("/admin", adminOrderRouter);
 
 // customer route
-app.use("/customer", customerProductRouter);
 app.use("/customer", customerAddressRouter);
+app.use("/customer", customerCartWishlistRouter);
+app.use("/customer", customerCheckoutRouter);
+app.use("/customer", customerCheckoutWithPointsRouter);
+app.use("/customer", customerHomeRouter);
+app.use("/customer", customerOrderRouter);
+app.use("/customer", customerProductRouter);
 app.use("/customer", customerPromoRouter);
 
 app.use(notFound);

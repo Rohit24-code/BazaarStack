@@ -1,6 +1,7 @@
 import { useAuthStore } from "@/features/auth/store"
 import { useAuth } from "@clerk/react"
 import { Navigate, Outlet } from "react-router-dom"
+import Loader from "../common/Loader"
 
 function ProtectedLayout() {
   const { isLoaded, isSignedIn } = useAuth()
@@ -8,7 +9,7 @@ function ProtectedLayout() {
   if (!isLoaded) return null
 
   if (!isLoaded || (isSignedIn && (!isBootStrapped || status === "loading"))) {
-    return null
+    return <Loader />
   }
 
   if (!isSignedIn) {

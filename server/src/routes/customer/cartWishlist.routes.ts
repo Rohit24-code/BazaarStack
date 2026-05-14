@@ -16,7 +16,6 @@ export const customerCartWishlistRouter = Router();
 
 customerCartWishlistRouter.use(requireAuth);
 
-customerCartWishlistRouter.get("/cart");
 // Cart Routes
 customerCartWishlistRouter.get("/cart", getCustomerCartWishlist);
 customerCartWishlistRouter.post("/cart", postCustomerCartWishlist);
