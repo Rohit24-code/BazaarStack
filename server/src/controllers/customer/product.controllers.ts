@@ -51,15 +51,17 @@ export const customerProductController = asyncHandler(
 
     if (sort === "price-low") {
       sortOptions = { price: 1 };
-    } else if (sort === "price-high") {
+    }
+    if (sort === "price-high") {
       sortOptions = { price: 1 };
     }
-
+    // const allproduct = await Product.find({});
+    // console.log(allproduct, "Asdf");
     const products = await Product.find(query)
       .populate("category", "name")
       .sort(sortOptions);
 
-    res.status(200).json(ok(products));
+    res.json(ok(products));
   },
 );
 

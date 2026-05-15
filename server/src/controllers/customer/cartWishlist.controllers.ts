@@ -71,9 +71,10 @@ async function getWishlistResponse(userId: string) {
     "products",
     "title brand price salePercentage images",
   );
+  console.log(wishlist, "produ ts");
 
   const products = (wishlist?.products || []) as Array<ProductPreview | null>;
-
+  console.log(products, "Asdf");
   const items = products.flatMap((productItem) => {
     if (!productItem) return [];
 
@@ -410,6 +411,34 @@ export const getCustomerWishlist = asyncHandler(
 export const postCustomerWishlist = asyncHandler(
   async (req: Request, res: Response) => {
     const dbUser = await getDbUserFromReq(req);
+    const productId = String(req.body.productId || "").trim();
+
+    requireText(productId, "Product id is required");
+
+    const product = await Product.findOne({
+      _id: productId,
+      status: "active",
+    });
+
+    const foundProduct = requireFound(product, "Product not found", 404);
+
+    let wishlist = await WishList.findOne({ user: dbUser._id });
+
+    if (!wishlist) {
+      wishlist = await WishList.create({
+        user: dbUser._id,
+        products: [],
+      });
+    }
+
+    const exists = wishlist.products.some(
+      (item: Types.ObjectId) => String(item) === String(foundProduct._id),
+    );
+
+    if (!exists) {
+      wishlist.products.push(foundProduct._id);
+      await wishlist.save();
+    }
 
     res.json(ok(await getWishlistResponse(String(dbUser._id))));
   },

@@ -6,14 +6,40 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { useAuth } from "@clerk/react"
-import { LogOut, ShoppingBag, Store, User } from "lucide-react"
+import { Heart, LogOut, ShoppingBag, Store, User } from "lucide-react"
 import { Link } from "react-router-dom"
 import { styles, navPages } from "./constants"
 import { NavTextLink } from "./NavTextLink"
 import CustomerMobileNavbar from "./MobileNavbar"
+import { useAuthStore } from "@/features/auth/store"
+import { useCustomerWishlistStore } from "@/features/customer/wishlist/store"
+import { useEffect } from "react"
+import CustomerWishlistDialog from "../Wishlist/CustomerWishlist"
 
 function CustomerNavbar() {
-  const { isSignedIn, signOut } = useAuth()
+  const { isSignedIn, signOut, isLoaded } = useAuth()
+  const { isBootStrapped } = useAuthStore()
+
+  const {
+    items: wishlistItems,
+    loadWishlist,
+    clear: clearWishlist,
+    setOpen: setWishListOpen,
+  } = useCustomerWishlistStore((state) => state)
+
+  useEffect(() => {
+    if (!isLoaded || !isBootStrapped) return
+
+    if (!isSignedIn) {
+      clearWishlist()
+      return
+    }
+
+    loadWishlist()
+  }, [clearWishlist, isBootStrapped, isSignedIn, loadWishlist, setWishListOpen])
+
+  const showSignInUi = isLoaded && isBootStrapped && isSignedIn
+  const wishListCount = wishlistItems.length
 
   return (
     <header className={styles.headerClass}>
@@ -34,7 +60,16 @@ function CustomerNavbar() {
         </div>
 
         <nav className={styles.desktopNav}>
-          <NavTextLink {...navPages.wishlist} />
+          {showSignInUi ? (
+            <button
+              type="button"
+              className={styles.iconLink}
+              onClick={() => setWishListOpen(true)}
+            >
+              <Heart className="h-4.5 w-4.5" />
+              <span className={styles.cartBadge}>{wishListCount}</span>
+            </button>
+          ) : null}
           {isSignedIn ? (
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
@@ -71,6 +106,8 @@ function CustomerNavbar() {
           </Link>
         </nav>
         <CustomerMobileNavbar isSignedIn={!!isSignedIn} />
+
+        {showSignInUi ? <CustomerWishlistDialog /> : null}
       </div>
     </header>
   )

@@ -13,12 +13,16 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet"
-import { Menu, ShoppingBag, Store } from "lucide-react"
+import { Heart, Menu, ShoppingBag, Store } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Link } from "react-router-dom"
 import { Separator } from "@/components/ui/separator"
 import DrawerSection from "./DrawerSection"
 import type { NavItem } from "@/components/common/types"
+import { useCustomerWishlistStore } from "@/features/customer/wishlist/store"
+import { useEffect } from "react"
+import { useAuth } from "@clerk/react"
+import { useAuthStore } from "@/features/auth/store"
 
 type Props = {
   isSignedIn: boolean
@@ -29,12 +33,44 @@ const CustomerMobileNavbar = ({ isSignedIn }: Props) => {
     ? mobileNavLoginPages
     : mobileNavLogOutPages
 
+  const { signOut, isLoaded } = useAuth()
+  const { isBootStrapped } = useAuthStore()
+
+  const {
+    items: wishlistItems,
+    loadWishlist,
+    clear: clearWishlist,
+    setOpen: setWishListOpen,
+  } = useCustomerWishlistStore((state) => state)
+
+  useEffect(() => {
+    if (!isLoaded || !isBootStrapped) return
+
+    if (!isSignedIn) {
+      clearWishlist()
+      return
+    }
+
+    loadWishlist()
+  }, [clearWishlist, isBootStrapped, isSignedIn, loadWishlist, setWishListOpen])
+
+  const showSignInUi = isLoaded && isBootStrapped && isSignedIn
+  const wishListCount = wishlistItems.length
+
   return (
     <div className={mobileNavStyles?.mobileWrap}>
-      <Link to={"/cart"} className={styles.iconLink}>
-        <ShoppingBag className="h-4.5 w-4.5" />
-        <span className={styles.cartBadge}>0</span>
-      </Link>
+      {/* <Link to={"/cart"} className={styles.iconLink}> */}
+      {showSignInUi ? (
+        <button
+          type="button"
+          className={styles.iconLink}
+          onClick={() => setWishListOpen(true)}
+        >
+          <Heart className="h-4.5 w-4.5" />
+          <span className={styles.cartBadge}>{wishListCount}</span>
+        </button>
+      ) : null}
+      {/* </Link> */}
       <Sheet>
         <SheetTrigger asChild>
           <Button
