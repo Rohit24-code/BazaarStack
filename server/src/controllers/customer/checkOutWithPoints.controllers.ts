@@ -12,6 +12,7 @@ import {
   PromoRow,
   CheckoutUserRow,
   ProductRow,
+  CartRow,
 } from "../../types/CheckoutWithPoints.types";
 import { Order } from "../../models/Order";
 
