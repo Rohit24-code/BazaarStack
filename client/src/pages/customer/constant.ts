@@ -67,3 +67,104 @@ export const collectionDetailsStyles = {
   ),
   relatedGridClass: cn("grid gap-5 sm:grid-cols-2 xl:grid-cols-4"),
 }
+
+// Home
+export const homeStyles = {
+  pageWrapClass: cn(
+    "min-h-screen bg-background antialiased selection:bg-primary/20"
+  ),
+  contentContainerClass: cn("mx-auto max-w-7xl px-4 py-0 sm:px-6 lg:px-8"),
+  sectionStackClass: cn("space-y-18"),
+
+  sectionHeadClass: cn("mb-10 space-y-3"),
+  sectionEyebrowClass: cn(
+    "text-xs font-bold tracking-[0.3em] text-primary/80 uppercase"
+  ),
+  sectionTitleClass: cn(
+    "text-3xl font-medium tracking-tight text-foreground sm:text-4xl lg:text-5xl"
+  ),
+
+  bannerGridClass: cn("grid gap-6 lg:grid-cols-[1.6fr_1fr]"),
+  bannerMainCardClass: cn(
+    "group relative overflow-hidden rounded-[2rem] border border-border/30 bg-card shadow-xl transition-all duration-500 hover:shadow-2xl hover:shadow-primary/5"
+  ),
+  bannerMainImageClass: cn(
+    "h-[540px] w-full object-cover transition-all duration-700 group-hover:scale-105"
+  ),
+
+  bannerSideGridClass: cn("grid gap-6 sm:grid-cols-2 lg:grid-cols-1"),
+  bannerSideCardClass: cn(
+    "group overflow-hidden rounded-[2rem] border border-border/40 bg-card shadow-lg transition-all duration-500 hover:-translate-y-1 hover:shadow-xl hover:shadow-primary/5"
+  ),
+  bannerSideImageClass: cn(
+    "h-[258px] w-full object-cover transition-all duration-700 group-hover:scale-105"
+  ),
+
+  categoryGridClass: cn("grid gap-6 sm:grid-cols-2 xl:grid-cols-4"),
+  categoryCardClass: cn(
+    "group relative overflow-hidden rounded-[2rem] border border-border/40 bg-card p-1.5 transition-all duration-500 hover:-translate-y-1 hover:border-primary/30 hover:shadow-xl hover:shadow-primary/5"
+  ),
+  categoryContentClass: cn(
+    "h-full space-y-5 rounded-[1.6rem] bg-gradient-to-br from-background/50 to-muted/30 p-8 backdrop-blur-sm transition-colors duration-500 group-hover:bg-background/80"
+  ),
+  categoryIconWrapClass: cn(
+    "flex h-14 w-14 items-center justify-center rounded-2xl bg-primary/5 text-primary ring-1 ring-primary/10 transition-transform duration-500 group-hover:scale-110 group-hover:bg-primary/10"
+  ),
+  categoryIconClass: cn("h-6 w-6"),
+  categoryTextWrapClass: cn("space-y-2"),
+  categoryTitleClass: cn("text-xl font-medium tracking-tight text-foreground"),
+  categoryLinkClass: cn(
+    "inline-flex items-center gap-2 text-sm font-semibold text-primary transition-colors group-hover:text-primary/80"
+  ),
+  categoryArrowIconClass: cn(
+    "h-4 w-4 transition-transform group-hover:translate-x-1"
+  ),
+
+  couponGridClass: cn("grid gap-6 md:grid-cols-2 xl:grid-cols-4"),
+  couponCardClass: cn(
+    "group relative overflow-hidden rounded-[2rem] border border-dashed border-primary/20 bg-primary/[0.02] transition-all duration-300 hover:border-primary/40 hover:bg-primary/[0.04]"
+  ),
+  couponContentClass: cn("space-y-6 p-8"),
+  couponHeadClass: cn("flex items-start justify-between gap-4"),
+  couponIconWrapClass: cn(
+    "flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 text-primary transition-transform duration-500 group-hover:rotate-12"
+  ),
+  couponIconClass: cn("h-6 w-6"),
+  couponCodeClass: cn("text-2xl font-bold tracking-widest text-primary"),
+
+  couponBadgeClass: cn(
+    "border-primary/20 bg-primary/10 px-3 py-1 text-sm font-medium text-primary hover:bg-primary/20"
+  ),
+  couponCodeWrapClass: cn("space-y-1 pt-2"),
+  couponCodeLabelClass: cn(
+    "text-[10px] font-bold tracking-[0.2em] text-muted-foreground uppercase"
+  ),
+
+  productGridClass: cn("grid gap-6 sm:grid-cols-2 xl:grid-cols-4"),
+  productCardClass: cn(
+    "group flex h-full flex-col overflow-hidden rounded-[2rem] border border-border/40 bg-card p-2 transition-all duration-500 hover:-translate-y-1 hover:border-primary/30 hover:shadow-2xl hover:shadow-primary/5"
+  ),
+  productContentClass: cn("flex flex-1 flex-col justify-between space-y-5 p-4"),
+  productImageWrapClass: cn(
+    "relative aspect-[4/5] w-full overflow-hidden rounded-2xl bg-muted/30"
+  ),
+  productImageClass: cn(
+    "h-full w-full object-cover transition-all duration-700 group-hover:scale-105"
+  ),
+  productInfoWrapClass: cn("space-y-3"),
+  productBrandRowClass: cn("flex items-center justify-between gap-3"),
+  productBrandClass: cn(
+    "text-xs font-semibold tracking-wider text-muted-foreground uppercase"
+  ),
+  productTitleClass: cn(
+    "line-clamp-2 text-base leading-relaxed font-medium text-foreground transition-colors group-hover:text-primary"
+  ),
+  productPriceRowClass: cn("flex items-end justify-between gap-3 pt-2"),
+  productPriceClass: cn("text-xl font-semibold tracking-tight text-foreground"),
+  productOriginalPriceClass: cn(
+    "text-sm font-medium text-muted-foreground line-through decoration-muted-foreground/50"
+  ),
+  productViewClass: cn(
+    "inline-flex h-8 items-center justify-center rounded-full bg-primary/5 px-4 text-xs font-semibold text-primary opacity-0 transition-all duration-300 group-hover:bg-primary/10 group-hover:opacity-100"
+  ),
+}

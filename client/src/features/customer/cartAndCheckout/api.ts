@@ -24,7 +24,7 @@ function buildCartItemUrl(
 
   const query = searchParams.toString()
   const actionPath = action ? `/${action}` : ""
-  const path = `/customer/cart/items/${item.productId}${actionPath}`
+  const path = `/customer/cart/${item.productId}${actionPath}`
 
   return query ? `${path}?${query}` : path
 }

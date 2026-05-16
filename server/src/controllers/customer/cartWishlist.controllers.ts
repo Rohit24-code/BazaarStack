@@ -138,71 +138,79 @@ export const getCustomerCartWishlist = asyncHandler(async (req, res, next) => {
   res.json(ok(await getCartResponse(String(dbUser._id))));
 });
 
-export const postCustomerCartWishlist = asyncHandler(async (req, res, next) => {
-  const dbUser = await getDbUserFromReq(req);
+export const postCustomerCartWishlist = asyncHandler(
+  async (req: Request, res: Response) => {
+    const dbUser = await getDbUserFromReq(req);
 
-  const productId = String(req.body.productId || "").trim();
-  const colorValue = String(req.body.color || "").trim();
-  const sizeValue = String(req.body.size || "").trim();
-  const quantity = Number(req.body.quantity || 1);
+    const productId = String(req.body.productId || "").trim();
+    const quantity = Number(req.body.quantity || 1);
+    const colorValue = String(req.body.color || "").trim();
+    const sizeValue = String(req.body.size || "").trim();
 
-  requireText(productId, "Product is required");
+    requireText(productId, "Product id is required");
 
-  if (Number.isNaN(quantity || quantity < 1)) {
-    throw new AppError(400, "Quantity must be atleast 1");
-  }
-
-  const product = await Product.findOne({
-    _id: productId,
-    status: "active",
-  });
-
-  const foundProduct = requireFound(product, "Product not found", 404);
-
-  const { color, size } = getSelectedvariant(
-    foundProduct,
-    colorValue,
-    sizeValue,
-  );
-
-  if (quantity > foundProduct.stock) {
-    throw new AppError(400, "Quantiy is more than stock");
-  }
-
-  let cart = await Cart.findOne({ user: dbUser._id });
-
-  if (!cart) {
-    cart = await Cart.create({
-      user: dbUser._id,
-      items: [],
-    });
-  }
-
-  const itemIndex = cart.items.findIndex((item: CartItem) =>
-    isSameCartItem(item, String(foundProduct._id), color, size),
-  );
-
-  if (itemIndex > 0) {
-    const nextQuantity = (cart.items[itemIndex].quantity += quantity);
-
-    if (nextQuantity > foundProduct.stock) {
-      throw new AppError(400, "Quantiy is more than stock");
+    if (Number.isNaN(quantity) || quantity < 1) {
+      throw new AppError(400, "Quantity must be at least 1");
     }
 
-    cart.item[itemIndex].quantity = nextQuantity;
-  } else {
-    cart.items.push({
-      product: foundProduct._id,
-      quantity,
-      color,
-      size,
+    const product = await Product.findOne({
+      _id: productId,
+      status: "active",
     });
-  }
 
-  await cart.save();
+    const foundProduct = requireFound(product, "Product not found", 404);
 
-  res.json(ok(await getCartResponse(String(dbUser._id))));
-});
+    const { color, size } = getSelectedvariant(
+      foundProduct,
+      colorValue,
+      sizeValue,
+    );
+
+    if (quantity > foundProduct.stock) {
+      throw new AppError(
+        400,
+        "Quantity is more than the stock of this product",
+      );
+    }
+
+    let cart = await Cart.findOne({ user: dbUser._id });
+
+    if (!cart) {
+      cart = await Cart.create({
+        user: dbUser._id,
+        items: [],
+      });
+    }
+
+    const itemIndex = cart.items.findIndex((item: CartItem) =>
+      isSameCartItem(item, String(foundProduct._id), color, size),
+    );
+
+    if (itemIndex > 0) {
+      const nextQuantity = cart.items[itemIndex].quantity + quantity;
+
+      if (nextQuantity > foundProduct.stock) {
+        throw new AppError(
+          400,
+          "Quantity is more than the stock of this product",
+        );
+      }
+
+      cart.items[itemIndex].quantity = nextQuantity;
+    } else {
+      cart.items.push({
+        product: foundProduct._id,
+        quantity,
+        color,
+        size,
+      });
+    }
+
+    await cart.save();
+
+    res.json(ok(await getCartResponse(String(dbUser._id))));
+  },
+);
 
 export const updateCustomerCartIncrease = asyncHandler(
   async (req, res, next) => {

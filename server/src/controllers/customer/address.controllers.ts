@@ -19,7 +19,7 @@ export const getAddressController = asyncHandler(async (req, res, next) => {
     ?.sort((a, b) => Number(b.isDefault) - Number(a.isDefault))
     .map(mapAddress);
 
-  res.status(200).json(ok(items));
+  res.status(200).json(ok({ items }));
 });
 
 export const postAddressController = asyncHandler(async (req, res, next) => {
