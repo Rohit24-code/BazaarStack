@@ -28,7 +28,7 @@ export const styles = {
   ),
   navWrap: cn("space-y-2"),
   navItemBase,
-  navItemDesktop: cn(`${navItemBase} rounded-none`),
+  navItemDesktop: cn(`${navItemBase} `),
   navItemMobile: navItemBase,
   activeItem: cn("bg-sidebar-primary text-sidebar-primary-foreground"),
   idleItem: cn(

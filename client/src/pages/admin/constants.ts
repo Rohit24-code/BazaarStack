@@ -15,7 +15,7 @@ export const promoStyles = {
   cardTitleClass: cn("text-xl"),
   cardContentClass: cn("space-y-4"),
   errorClass: cn(
-    "rounded-none border border-destructive/20 bg-destructive/10 px-4 py-3 text-sm text-destructive"
+    " border border-destructive/20 bg-destructive/10 px-4 py-3 text-sm text-destructive"
   ),
 }
 
@@ -79,10 +79,10 @@ export const settingStyles = {
   uploadTextWrapClass: cn("space-y-2"),
   uploadHeadingClass: cn("text-base font-medium text-foreground"),
   uploadSubtextClass: cn("text-sm text-muted-foreground"),
-  fileInputClass: cn("rounded-none"),
+  fileInputClass: cn(""),
   fileCountClass: cn("text-xs text-muted-foreground"),
-  fullButtonClass: cn("w-full rounded-none"),
-  buttonClass: cn("rounded-none"),
+  fullButtonClass: cn("w-full "),
+  buttonClass: cn(""),
   errorBoxClass: cn(
     "border border-destructive/30 bg-destructive/10 p-4 text-sm text-foreground"
   ),
@@ -103,7 +103,7 @@ export const orderStyles = {
   ),
   titleClass: cn("flex items-center gap-2 text-2xl font-semibold"),
   metaClass: cn("text-sm text-muted-foreground"),
-  buttonClass: cn("rounded-none"),
+  buttonClass: cn(""),
   emptyClass: cn(
     "rounded-lg border border-border bg-background p-6 text-sm text-muted-foreground"
   ),
@@ -111,7 +111,7 @@ export const orderStyles = {
   cellStackClass: cn("space-y-1"),
   primaryTextClass: cn("font-medium text-foreground"),
   subTextClass: cn("text-xs text-muted-foreground"),
-  selectTriggerClass: cn("h-9 w-[160px] rounded-none"),
+  selectTriggerClass: cn("h-9 w-[160px] "),
   successBadgeClass: cn(
     "border-primary/30 bg-primary/10 text-primary hover:bg-primary/10"
   ),

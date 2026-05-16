@@ -28,7 +28,7 @@ export const customerProductCardStyles = {
   colorSwatch: cn("h-4 w-4 border border-border"),
   extraColors: cn("text-xs text-muted-foreground"),
   footer: cn("flex items-center justify-between gap-3"),
-  button: cn("rounded-none px-4"),
+  button: cn("px-4"),
 }
 
 // customer filter
@@ -36,11 +36,11 @@ export const customerFilterStyles = {
   panelWrapClass: cn("space-y-6 overflow-y-auto px-4 py-2 lg:px-0 lg:py-0"),
   panelHeaderClass: cn("flex items-center justify-between gap-3"),
   titleClass: cn("text-base font-semibold text-foreground"),
-  clearButtonClass: cn("rounded-none px-2 text-sm"),
+  clearButtonClass: cn("px-2 text-sm"),
   sectionClass: cn("space-y-3"),
   sectionTitleClass: cn("text-sm font-medium text-foreground"),
   stackedOptionsClass: cn("space-y-1"),
-  fullWidthButtonClass: cn("w-full justify-start rounded-none"),
+  fullWidthButtonClass: cn("w-full justify-start"),
   colorsWrapClass: cn("flex flex-wrap gap-3"),
   colorButtonBaseClass: cn(
     "flex flex-col items-center gap-2 text-xs text-muted-foreground"
@@ -51,7 +51,7 @@ export const customerFilterStyles = {
   colorSwatchInactiveClass: cn("border-border"),
   helperTextClass: cn("text-sm text-muted-foreground"),
   sizesWrapClass: cn("flex flex-wrap gap-2"),
-  sizeButtonClass: cn("min-w-12 rounded-none"),
+  sizeButtonClass: cn("min-w-12"),
 }
 
 // customer product details gallery
@@ -92,8 +92,8 @@ export const customerProductDetailsSummaryStyles = {
     "text-sm leading-7 whitespace-pre-line text-muted-foreground"
   ),
   actionButtonsClass: cn("flex flex-col gap-3 sm:flex-row"),
-  primaryButtonClass: cn("rounded-none sm:flex-1"),
-  secondaryButtonClass: cn("rounded-none sm:flex-1"),
+  primaryButtonClass: cn("sm:flex-1"),
+  secondaryButtonClass: cn("sm:flex-1"),
   iconClass: cn("mr-2 h-4 w-4"),
 }
 
@@ -109,8 +109,8 @@ export const customerOptionsGroupStyles = {
   inactiveButtonClass: cn(
     "border-border bg-secondary text-secondary-foreground hover:border-primary/40"
   ),
-  sizeButtonClass: cn("min-w-12 rounded-none"),
-  colorButtonClass: cn("rounded-none"),
+  sizeButtonClass: cn("min-w-12"),
+  colorButtonClass: cn(""),
   swatchClass: cn("h-4 w-4 border border-border"),
 }
 
@@ -150,7 +150,7 @@ export const customerWishlistStyles = {
   titleClass: cn("line-clamp-2 text-sm font-medium text-foreground"),
   priceClass: cn("text-sm font-semibold text-foreground"),
   actionsClass: cn("flex gap-2 pt-1"),
-  buttonClass: cn("h-8 rounded-none px-3 text-xs"),
+  buttonClass: cn("h-8 px-3 text-xs"),
   emptyClass: cn("text-sm text-muted-foreground"),
   iconClass: cn("h-4 w-4"),
   DialogTitleClass: cn("flex items-center gap-2"),
@@ -188,13 +188,13 @@ export const customerProfileStyles = {
   nameClass: cn("font-medium text-foreground"),
   addressClass: cn("text-sm text-muted-foreground"),
   actionRowClass: cn("flex gap-2"),
-  buttonClass: cn("rounded-none"),
+  buttonClass: cn(""),
   emptyClass: cn("text-sm text-muted-foreground"),
   formWrapClass: cn("space-y-4 border border-border/60 bg-card/80 p-5"),
   twoColumnClass: cn("grid gap-4 sm:grid-cols-2"),
   threeColumnClass: cn("grid gap-4 sm:grid-cols-3"),
   fieldClass: cn("space-y-2"),
-  inputClass: cn("rounded-none"),
+  inputClass: cn(""),
   checkboxRowClass: cn(
     "flex items-center gap-3 border border-border bg-secondary/40 px-3 py-3 text-sm text-foreground"
   ),
@@ -210,7 +210,7 @@ export const customerOrderDialogStyles = {
   wrapClass: cn("space-y-4"),
   topRowClass: cn("flex items-center justify-between gap-3"),
   metaClass: cn("text-sm text-muted-foreground"),
-  buttonClass: cn("rounded-none"),
+  buttonClass: cn(""),
   emptyClass: cn("text-sm text-muted-foreground"),
   successBadgeClass: cn(
     "border-primary/30 bg-primary/10 text-primary hover:bg-primary/10"
@@ -226,7 +226,7 @@ export const customerOrderDialogStyles = {
 // customer cart and checkout drawer
 export const customerCartAndCheckoutDrawerStyles = {
   contentClass: cn(
-    "ml-auto flex h-[90dvh] max-h-[90dvh] w-full overflow-hidden rounded-none border-l border-border bg-background p-0"
+    "ml-auto flex h-[90dvh] max-h-[90dvh] w-full overflow-hidden border-l border-border bg-background p-0"
   ),
   shellClass: cn("grid h-full min-h-0 w-full lg:grid-cols-[1.7fr_1fr]"),
   leftPaneClass: cn("min-h-0 border-b border-border lg:border-r lg:border-b-0"),
@@ -249,10 +249,10 @@ export const customerCartAndCheckoutDrawerStyles = {
     "flex items-center justify-between border-t border-border pt-4 text-base font-semibold"
   ),
   promoRowClass: cn("flex gap-2"),
-  promoInputClass: cn("rounded-none"),
+  promoInputClass: cn(""),
   actionClass: cn("shrink-0 space-y-3 border-t border-border px-5 py-4"),
   primaryButtonClass: cn("h-11 w-full"),
-  secondaryButtonClass: cn("h-11 w-full rounded-none"),
+  secondaryButtonClass: cn("h-11 w-full"),
   promoTitle: cn("flex items-center gap-2 text-sm font-medium text-foreground"),
   infoBoxClass: cn(
     "rounded-2xl border border-dashed border-border bg-background/70 p-4 text-sm text-muted-foreground"

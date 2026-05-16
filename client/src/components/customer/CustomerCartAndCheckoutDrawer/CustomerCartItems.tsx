@@ -31,7 +31,7 @@ const priceClass = "text-sm font-semibold text-foreground"
 const footerRowClass = "flex flex-wrap items-center justify-between gap-3 pt-2"
 const qtyWrapClass =
   "flex items-center overflow-hidden border border-border bg-background"
-const qtyButtonClass = "h-9 w-9 rounded-none px-0"
+const qtyButtonClass = "h-9 w-9  px-0"
 const qtyIconClass = "h-3.5 w-3.5"
 const qtyValueClass =
   "flex h-9 min-w-10 items-center justify-center border-x border-border px-2 text-sm font-medium"

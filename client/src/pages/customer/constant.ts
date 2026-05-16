@@ -16,7 +16,7 @@ export const productCollectionStyles = {
     "text-3xl font-semibold tracking-tight text-foreground md:text-4xl"
   ),
   sortWrap: cn("flex items-center gap-3 text-sm text-muted-foreground"),
-  sortTrigger: cn("w-[180px] rounded-none bg-card"),
+  sortTrigger: cn("w-[180px] bg-card"),
   contentContainer: cn("mx-auto max-w-7xl px-4 py-2"),
   topBar: cn(
     "mb-6 flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between"
@@ -26,7 +26,7 @@ export const productCollectionStyles = {
     "border-border bg-secondary text-secondary-foreground hover:bg-secondary"
   ),
   topBarActions: cn("flex items-center gap-3"),
-  mobileFilterButton: cn("rounded-none lg:hidden"),
+  mobileFilterButton: cn("lg:hidden"),
   mobileFilterIcon: cn("mr-2 h-4 w-4"),
   mobileSheetContent: cn("w-full max-w-sm border-border bg-background"),
   mobileSheetHeader: cn("sr-only"),
@@ -34,7 +34,7 @@ export const productCollectionStyles = {
   desktopAside: cn("hidden lg:block"),
   desktopFilterCard: cn("sticky top-24 border-border/60 bg-card/80 p-5"),
   productSection: cn("space-y-6"),
-  actionButton: cn("rounded-none"),
+  actionButton: cn(""),
   emptyCard: cn("border-border/60 bg-card/80"),
   emptyCardContent: cn(
     "flex min-h-60 flex-col items-center justify-center gap-4 p-6 text-center"
@@ -50,7 +50,7 @@ export const collectionDetailsStyles = {
     "border-b border-border/60 bg-gradient-to-b from-primary/10 via-background to-background"
   ),
   heroContainerClass: cn("mx-auto max-w-7xl px-4 py-8"),
-  backButtonClass: cn("mb-4 rounded-none px-0 hover:bg-transparent"),
+  backButtonClass: cn("mb-4 px-0 hover:bg-transparent"),
   backIconClass: cn("mr-2 h-4 w-4"),
   heroContentClass: cn("space-y-2"),
   heroEyebrowClass: cn("text-sm tracking-[0.2em] text-primary uppercase"),

@@ -91,11 +91,7 @@ function CustomerOrdersDialog() {
       cellClassName: "text-right",
       render: (row) =>
         canReturnOrder(row) ? (
-          <Button
-            size="sm"
-            className="rounded-none"
-            onClick={() => returnOrder(row._id)}
-          >
+          <Button size="sm" className="" onClick={() => returnOrder(row._id)}>
             Return
           </Button>
         ) : (
