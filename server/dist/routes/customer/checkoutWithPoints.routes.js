@@ -1,0 +1,10 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.customerCheckoutWithPointsRouter = void 0;
+const express_1 = require("express");
+const auth_1 = require("../../middleware/auth");
+const checkOutWithPoints_controllers_1 = require("../../controllers/customer/checkOutWithPoints.controllers");
+exports.customerCheckoutWithPointsRouter = (0, express_1.Router)();
+exports.customerCheckoutWithPointsRouter.use(auth_1.requireAuth);
+exports.customerCheckoutWithPointsRouter.get("/checkout/points", checkOutWithPoints_controllers_1.getCheckoutPoints);
+exports.customerCheckoutWithPointsRouter.post("/checkout/pay-with-points", checkOutWithPoints_controllers_1.payWithPoints);

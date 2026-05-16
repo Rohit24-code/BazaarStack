@@ -1,0 +1,10 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.customerCheckoutRouter = void 0;
+const express_1 = require("express");
+const auth_1 = require("../../middleware/auth");
+const checkout_controller_1 = require("../../controllers/customer/checkout.controller");
+exports.customerCheckoutRouter = (0, express_1.Router)();
+exports.customerCheckoutRouter.use(auth_1.requireAuth);
+exports.customerCheckoutRouter.post("/checkout/create-session", checkout_controller_1.checkoutCreateSession);
+exports.customerCheckoutRouter.post("/checkout/confirm", checkout_controller_1.checkoutConfirm);
