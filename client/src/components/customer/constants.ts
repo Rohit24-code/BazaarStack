@@ -156,3 +156,105 @@ export const customerWishlistStyles = {
   DialogTitleClass: cn("flex items-center gap-2"),
   trashIcon: cn("mr-2 h-4 w-4"),
 }
+
+// customer profile style
+export const customerProfileStyles = {
+  dialogClass: cn(
+    "max-h-[92vh] overflow-y-auto border-border bg-background sm:max-w-5xl"
+  ),
+  dialogTitle: cn("flex items-center gap-2"),
+  shellClass: cn("space-y-6"),
+  accountCardClass: cn("border border-border/60 bg-card/80 p-5"),
+  accountRowClass: cn("flex flex-wrap items-center justify-between gap-4"),
+  accountTextClass: cn("space-y-1"),
+  accountTitleClass: cn("text-xl font-semibold text-foreground"),
+  emailClass: cn("text-sm text-muted-foreground"),
+  pointsClass: cn(
+    "inline-flex items-center rounded-full border border-primary/30 bg-primary/10 px-3 py-1 text-sm font-medium text-primary"
+  ),
+  gridClass: cn("grid gap-6 lg:grid-cols-[1.1fr_0.9fr]"),
+  singleGridClass: cn("grid gap-6"),
+  sectionClass: cn("space-y-4"),
+  sectionHeaderClass: cn("flex items-center justify-between gap-3"),
+  sectionTitleClass: cn("text-lg font-semibold text-foreground"),
+  sectionTextClass: cn("text-sm text-muted-foreground"),
+  listClass: cn("space-y-3"),
+  itemClass: cn("space-y-3 border border-border/60 bg-card/80 p-4"),
+  itemTopClass: cn("flex flex-wrap items-start justify-between gap-3"),
+  itemTextClass: cn("space-y-1"),
+  defaultClass: cn(
+    "inline-flex rounded-full border border-primary/30 bg-primary/10 px-2 py-0.5 text-xs font-medium text-primary"
+  ),
+  nameClass: cn("font-medium text-foreground"),
+  addressClass: cn("text-sm text-muted-foreground"),
+  actionRowClass: cn("flex gap-2"),
+  buttonClass: cn("rounded-none"),
+  emptyClass: cn("text-sm text-muted-foreground"),
+  formWrapClass: cn("space-y-4 border border-border/60 bg-card/80 p-5"),
+  twoColumnClass: cn("grid gap-4 sm:grid-cols-2"),
+  threeColumnClass: cn("grid gap-4 sm:grid-cols-3"),
+  fieldClass: cn("space-y-2"),
+  inputClass: cn("rounded-none"),
+  checkboxRowClass: cn(
+    "flex items-center gap-3 border border-border bg-secondary/40 px-3 py-3 text-sm text-foreground"
+  ),
+  checkboxClass: cn("h-4 w-4 accent-[var(--primary)]"),
+  formActionsClass: cn("flex flex-wrap justify-end gap-3"),
+}
+
+// customer order dialog style
+export const customerOrderDialogStyles = {
+  dialogClass: cn(
+    "max-h-[92vh] overflow-y-auto border-border bg-background sm:max-w-3xl"
+  ),
+  wrapClass: cn("space-y-4"),
+  topRowClass: cn("flex items-center justify-between gap-3"),
+  metaClass: cn("text-sm text-muted-foreground"),
+  buttonClass: cn("rounded-none"),
+  emptyClass: cn("text-sm text-muted-foreground"),
+  successBadgeClass: cn(
+    "border-primary/30 bg-primary/10 text-primary hover:bg-primary/10"
+  ),
+  dangerBadgeClass: cn(
+    "border-destructive/30 bg-destructive/10 text-destructive hover:bg-destructive/10"
+  ),
+  neutralBadgeClass: cn(
+    "border-border bg-secondary/60 text-foreground hover:bg-secondary/60"
+  ),
+}
+
+// customer cart and checkout drawer
+export const customerCartAndCheckoutDrawerStyles = {
+  contentClass: cn(
+    "ml-auto flex h-[90dvh] max-h-[90dvh] w-full overflow-hidden rounded-none border-l border-border bg-background p-0"
+  ),
+  shellClass: cn("grid h-full min-h-0 w-full lg:grid-cols-[1.7fr_1fr]"),
+  leftPaneClass: cn("min-h-0 border-b border-border lg:border-r lg:border-b-0"),
+  rightPaneClass: cn(
+    "min-h-0 bg-gradient-to-b from-secondary/40 via-background to-background"
+  ),
+  rightInnerClass: cn("flex h-full min-h-0 flex-col p-5"),
+  panelClass: cn(
+    "flex h-full min-h-0 flex-1 flex-col overflow-hidden rounded-2xl border border-border bg-card shadow-sm"
+  ),
+  panelHeaderClass: cn("border-b border-border px-5 py-4"),
+  panelTitleClass: cn("flex items-center gap-2 text-left"),
+  scrollClass: cn("min-h-0 flex-1"),
+  bodyClass: cn("space-y-4 px-5 py-4"),
+  sectionTitleClass: cn("text-sm font-medium text-foreground"),
+  helperClass: cn("text-xs text-muted-foreground"),
+  cardClass: cn("border border-border bg-background/50 p-3 text-sm"),
+  rowClass: cn("flex items-center justify-between text-sm"),
+  totalRowClass: cn(
+    "flex items-center justify-between border-t border-border pt-4 text-base font-semibold"
+  ),
+  promoRowClass: cn("flex gap-2"),
+  promoInputClass: cn("rounded-none"),
+  actionClass: cn("shrink-0 space-y-3 border-t border-border px-5 py-4"),
+  primaryButtonClass: cn("h-11 w-full"),
+  secondaryButtonClass: cn("h-11 w-full rounded-none"),
+  promoTitle: cn("flex items-center gap-2 text-sm font-medium text-foreground"),
+  infoBoxClass: cn(
+    "rounded-2xl border border-dashed border-border bg-background/70 p-4 text-sm text-muted-foreground"
+  ),
+}

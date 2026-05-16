@@ -91,3 +91,34 @@ export const settingStyles = {
   ),
   tableHeaderClass: cn("flex flex-row items-center justify-between gap-3"),
 }
+
+// orders
+export const orderStyles = {
+  pageWrapClass: cn("min-h-screen bg-background"),
+  contentWrapClass: cn("mx-auto max-w-7xl px-4 py-8"),
+  cardClass: cn("border-border bg-card"),
+  wrapClass: cn("space-y-4"),
+  topRowClass: cn(
+    "flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between"
+  ),
+  titleClass: cn("flex items-center gap-2 text-2xl font-semibold"),
+  metaClass: cn("text-sm text-muted-foreground"),
+  buttonClass: cn("rounded-none"),
+  emptyClass: cn(
+    "rounded-lg border border-border bg-background p-6 text-sm text-muted-foreground"
+  ),
+  tableWrapClass: cn("overflow-x-auto"),
+  cellStackClass: cn("space-y-1"),
+  primaryTextClass: cn("font-medium text-foreground"),
+  subTextClass: cn("text-xs text-muted-foreground"),
+  selectTriggerClass: cn("h-9 w-[160px] rounded-none"),
+  successBadgeClass: cn(
+    "border-primary/30 bg-primary/10 text-primary hover:bg-primary/10"
+  ),
+  dangerBadgeClass: cn(
+    "border-destructive/30 bg-destructive/10 text-destructive hover:bg-destructive/10"
+  ),
+  neutralBadgeClass: cn(
+    "border-border bg-secondary/60 text-foreground hover:bg-secondary/60"
+  ),
+}
