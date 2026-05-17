@@ -19,11 +19,11 @@ customerCartWishlistRouter.use(requireAuth);
 // Cart Routes
 customerCartWishlistRouter.get("/cart", getCustomerCartWishlist);
 customerCartWishlistRouter.post("/cart", postCustomerCartWishlist);
-customerCartWishlistRouter.put(
+customerCartWishlistRouter.patch(
   "/cart/:productId/increase",
   updateCustomerCartIncrease,
 );
-customerCartWishlistRouter.put(
+customerCartWishlistRouter.patch(
   "/cart/:productId/decrease",
   updateCustomerCartDecrease,
 );

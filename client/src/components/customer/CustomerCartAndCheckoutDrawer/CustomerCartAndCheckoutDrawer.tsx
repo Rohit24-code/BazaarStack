@@ -56,8 +56,8 @@ function CustomerCartAndCheckoutDrawer() {
   useEffect(() => {
     if (!isOpen || !isLoaded || !isBootStrapped) return
 
-    void loadCart(Boolean(isSignedIn))
-    console.log("called checkout cart")
+    loadCart(Boolean(isSignedIn))
+
   }, [isBootStrapped, isLoaded, isOpen, isSignedIn, loadCart])
 
   const selectedAddress =
@@ -73,14 +73,7 @@ function CustomerCartAndCheckoutDrawer() {
     : 0
 
   const totalAmount = Math.max(subTotal - discountAmount, 0)
-  console.log(
-    loading,
-    !cart.items.length,
-    !selectedAddressId,
-    checkoutLoading,
-    pointsCheckoutLoading,
-    "loading ,!cart.items.length ,!selectedAddressId ,checkoutLoading ,pointsCheckoutLoading"
-  )
+
   return (
     <Drawer open={isOpen} onOpenChange={setOpen}>
       <DrawerContent

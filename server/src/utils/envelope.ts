@@ -3,13 +3,15 @@ export type ApiEnvelop<DataType> = {
   data: DataType | null;
   meta?: Record<string, unknown>;
   errors?: Array<{ message: string; code?: string }>;
+  totalCount?:number;
 };
 
-export function ok<T>(data: T, meta?: Record<string, unknown>): ApiEnvelop<T> {
+export function ok<T>(data: T, meta?: Record<string, unknown>,totalCount?:number): ApiEnvelop<T> {
   return {
     status: "success",
     data,
     meta,
+    totalCount
   };
 }
 

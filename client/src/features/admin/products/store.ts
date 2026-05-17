@@ -4,6 +4,9 @@ import { getAdminCategories, getAdminProducts } from "./api"
 
 type ProductStore = {
   search: string
+  page: number
+  limit: number
+  totalCount: number
   products: Product[]
   categories: Category[]
   loading: boolean
@@ -11,6 +14,7 @@ type ProductStore = {
   productDialogOpen: boolean
   editingProduct: Product | null
   setSearch: (search: string) => void
+  setPage: (page: number) => void
   setLoading: () => void
   openCreateDialog: () => void
   closeProductDialog: () => void
@@ -25,6 +29,9 @@ type ProductStore = {
 
 export const useProductStore = create<ProductStore>((set, get) => ({
   search: "",
+  page: 1,
+  limit: 5,
+  totalCount: 0,
   products: [],
   categories: [],
   loading: true,
@@ -32,6 +39,10 @@ export const useProductStore = create<ProductStore>((set, get) => ({
   productDialogOpen: false,
   editingProduct: null,
   setSearch: (search) => set({ search }),
+  setPage: (page) => {
+    set({ page })
+    get().fetchProducts()
+  },
   setLoading: () => set({ loading: true }),
   openCreateDialog: () => {
     get().fetchCategories()
@@ -54,10 +65,22 @@ export const useProductStore = create<ProductStore>((set, get) => ({
   setProductDialogToogle: (open: boolean) => set({ productDialogOpen: open }),
   fetchProducts: async (searchValue?: string) => {
     set({ loading: true })
+    const { page, limit, search } = get()
+    
+    // If a new search is passed, reset to page 1
+    const isNewSearch = searchValue !== undefined
+    const activeSearch = isNewSearch ? searchValue : search
+    const activePage = isNewSearch ? 1 : page
+    
+    if (isNewSearch) {
+      set({ search: searchValue, page: 1 })
+    }
+
+    const offset = (activePage - 1) * limit
 
     try {
-      const data = await getAdminProducts(searchValue)
-      set({ products: data ?? [] })
+      const response = await getAdminProducts(activeSearch, limit, offset)
+      set({ products: response.data ?? [], totalCount: response.totalCount })
     } catch {
       console.log("fetching failed")
     } finally {

@@ -54,18 +54,27 @@ export const updateCategory = asyncHandler(async (req, res, next) => {
 
 export const getProducts = asyncHandler(async (req, res, next) => {
   const search = String(req.query.search || "").trim();
+  const limit = Number(req.query.limit || 10);//10
+  const offset = Number(req.query.offset || 0);//20
 
   const query: Record<string, unknown> = {};
+
+  
 
   if (search) {
     // over here i is for case insensitive
     query.title = { $regex: search, $options: "i" };
   }
+
   const products = await Product.find(query)
     .populate("category", "name")
-    .sort({ createdAt: -1 });
+    .sort({ createdAt: -1 })
+    .skip(offset)
+    .limit(limit);
 
-  res.status(200).json(ok(products));
+    const totalCount = await Product.countDocuments(query);
+
+  res.status(200).json(ok(products,undefined,totalCount));
 });
 
 export const getSingleProduct = asyncHandler(
@@ -111,6 +120,14 @@ export const addProduct = asyncHandler(
 
     requireText(existingCategory, "Category not found", 404);
 
+   
+    const existingTitle = await Product.findOne({title});
+
+    if(existingTitle!=null){
+      throw new AppError(400,"Product with same title exists")
+    }
+
+
     const files = (req.files as Express.Multer.File[]) || [];
 
     if (!files.length) {
@@ -128,6 +145,9 @@ export const addProduct = asyncHandler(
     }));
 
     const user = await getDbUserFromReq(req);
+
+    
+    
 
     const product = await Product.create({
       title,
@@ -187,6 +207,14 @@ export const updateProduct = asyncHandler(
       "Category not found",
       404,
     );
+
+
+    const existingTitle = await Product.findOne({title,_id:{$ne:productId}});
+
+    if(existingTitle!=null){
+      throw new AppError(400,"Product with same title exists")
+    }
+
 
     const productDoc = await Product.findById(productId);
 

@@ -1,4 +1,4 @@
-import { apiGet, apiPost, apiPut } from "@/lib/api"
+import { apiGet, apiGetPaginated, apiPost, apiPut } from "@/lib/api"
 import type {
   Category,
   CreateCategoryBody,
@@ -28,11 +28,22 @@ export async function updateAdminCategory(
 
 // products
 
-export async function getAdminProducts(search?: string) {
-  const query = search?.trim()
-    ? `/admin/products?search=${search.trim()}`
-    : "/admin/products"
-  return apiGet<Product[]>(query)
+export async function getAdminProducts(search?: string,limit?:number,offset?:number) {
+  let query = new URLSearchParams()
+   
+  if(search?.trim()){
+    query.append("search",search)
+  }
+  if(limit!=undefined){
+    query.append("limit",limit?.toString())
+  }
+  if(offset!=undefined){
+    query.append("offset",offset?.toString())
+  }
+
+let url =  query.size>0 ? `/admin/products?${query}`
+ : `/admin/products`
+  return apiGetPaginated<Product[]>(url)
 }
 
 export async function getAdminSingleProduct(productId: string) {

@@ -78,6 +78,23 @@ export async function apiGet<T>(url: string, config?: AxiosRequestConfig) {
   }
 }
 
+export async function apiGetPaginated<T>(url: string, config?: AxiosRequestConfig) {
+  try {
+    const response = await api.get<ApiEnvelop<T>>(url, config)
+
+    if (response.data.status === "error" || !response.data.data) {
+      throw new Error(response?.data?.errors?.[0]?.message || "Request Failed")
+    }
+
+    return {
+      data: response.data.data,
+      totalCount: response.data.totalCount || 0,
+    }
+  } catch (error) {
+    throw new Error(getErrorMsg(error))
+  }
+}
+
 export async function apiPost<TResponse, Tbody = unknown>(
   url: string,
   body?: Tbody,
