@@ -88,3 +88,14 @@ export type ProductFormState = {
   newFiles: File[]
   coverImagePublicId: string
 }
+
+export type ErrorFormState = {
+  title?: string
+  description?: string
+  category?: string
+  brand?: string
+  status?: string
+  price?: string
+  salePercentage?: string
+  stock?: string
+}

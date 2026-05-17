@@ -38,6 +38,9 @@ app.use(
 
 app.use(express.json());
 app.use(morgan("dev"));
+
+app.use("/customer", customerHomeRouter);
+app.use("/customer", customerProductRouter);
 app.use(clerkMiddleware());
 
 app.get("/health", (req, res) => {
@@ -63,9 +66,7 @@ app.use("/customer", customerAddressRouter);
 app.use("/customer", customerCartWishlistRouter);
 app.use("/customer", customerCheckoutRouter);
 app.use("/customer", customerCheckoutWithPointsRouter);
-app.use("/customer", customerHomeRouter);
 app.use("/customer", customerOrderRouter);
-app.use("/customer", customerProductRouter);
 app.use("/customer", customerPromoRouter);
 
 app.use(notFound);

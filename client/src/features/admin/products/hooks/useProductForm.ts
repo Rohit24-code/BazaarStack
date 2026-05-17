@@ -1,5 +1,10 @@
 import { useEffect, useState } from "react"
-import type { Product, ProductFormState, ProductImage } from "../types"
+import type {
+  ErrorFormState,
+  Product,
+  ProductFormState,
+  ProductImage,
+} from "../types"
 import { createAdminProduct, updateAdminProduct } from "../api"
 import { useProductStore } from "../store"
 
@@ -52,6 +57,7 @@ type AppProps = {
 export function useProductForm({ product }: AppProps) {
   const [form, setForm] = useState<ProductFormState>(getEmptyForm())
   const [saving, setSaving] = useState(false)
+  const [errors, setErrors] = useState<ErrorFormState>({})
 
   const {
     productDialogOpen: open,
@@ -61,6 +67,7 @@ export function useProductForm({ product }: AppProps) {
 
   useEffect(() => {
     setForm(product ? mapProductToFormValues(product) : getEmptyForm())
+    setErrors({})
   }, [open, product])
 
   const onClose = () => setProductDialogToogle(false)
@@ -97,6 +104,13 @@ export function useProductForm({ product }: AppProps) {
       ...prev,
       newFiles: [...prev.newFiles, ...Array.from(files)],
     }))
+
+    if ((errors as any).images) {
+      setErrors((prev) => ({
+        ...prev,
+        images: undefined,
+      }))
+    }
   }
 
   function updateField<K extends keyof ProductFormState>(
@@ -107,6 +121,13 @@ export function useProductForm({ product }: AppProps) {
       ...prev,
       [key]: value,
     }))
+
+    if (errors[key as keyof ErrorFormState]) {
+      setErrors((prev) => ({
+        ...prev,
+        [key]: undefined,
+      }))
+    }
   }
 
   function removeExistingImage(publicId: string) {
@@ -132,9 +153,61 @@ export function useProductForm({ product }: AppProps) {
     updateField("coverImagePublicId", publicId)
   }
 
+  function validate(): boolean {
+    const newErrors: ErrorFormState = {}
+    let isValid = true
+
+    if (!form.title.trim()) {
+      newErrors.title = "Title is required"
+      isValid = false
+    }
+
+    if (!form.description.trim()) {
+      newErrors.description = "Description is required"
+      isValid = false
+    }
+
+    if (!form.category) {
+      newErrors.category = "Category is required"
+      isValid = false
+    }
+
+    if (!form.brand.trim()) {
+      newErrors.brand = "Brand is required"
+      isValid = false
+    }
+
+    if (!form.price || isNaN(Number(form.price)) || Number(form.price) <= 0) {
+      newErrors.price = "Valid price is required"
+      isValid = false
+    }
+
+    if (
+      form.salePercentage &&
+      (isNaN(Number(form.salePercentage)) ||
+        Number(form.salePercentage) < 0 ||
+        Number(form.salePercentage) > 100)
+    ) {
+      newErrors.salePercentage = "Sale percentage must be between 0 and 100"
+      isValid = false
+    }
+
+    if (!form.stock || isNaN(Number(form.stock)) || Number(form.stock) < 0) {
+      newErrors.stock = "Valid stock is required"
+      isValid = false
+    }
+
+    if (form.existingImages.length === 0 && form.newFiles.length === 0) {
+      ;(newErrors as any).images = "At least one image is required"
+      isValid = false
+    }
+
+    setErrors(newErrors)
+    return isValid
+  }
+
   async function submit() {
-    // if (!form.title.trim() || !form.description.trim() || !form.category.trim())
-    //   return;
+    if (!validate()) return
 
     try {
       setSaving(true)
@@ -187,6 +260,7 @@ export function useProductForm({ product }: AppProps) {
 
   return {
     form,
+    errors,
     saving,
     isEditMode: !!product,
     toggleSize,

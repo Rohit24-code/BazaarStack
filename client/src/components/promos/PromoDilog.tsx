@@ -18,11 +18,13 @@ const PromoDialog = () => {
     saving,
   } = useAdminPromoStore()
   const [form, setForm] = useState<PromoFormValues>(defaultForm)
+  const [errors, setErrors] = useState<Partial<Record<keyof PromoFormValues, string>>>({})
   const isEditMode = !!promo
 
   useEffect(() => {
     if (!open) {
       setForm(defaultForm)
+      setErrors({})
       return
     }
 
@@ -35,11 +37,12 @@ const PromoDialog = () => {
         startsAt: toDateTimeLocal(promo.startsAt),
         endsAt: toDateTimeLocal(promo.endsAt),
       })
-
+      setErrors({})
       return
     }
 
     setForm(defaultForm)
+    setErrors({})
   }, [open, promo])
 
   function updateField<K extends keyof PromoFormValues>(
@@ -50,17 +53,53 @@ const PromoDialog = () => {
       ...current,
       [key]: value,
     }))
+    if (errors[key]) {
+      setErrors((current) => ({ ...current, [key]: undefined }))
+    }
   }
 
   async function submit() {
+    const newErrors: Partial<Record<keyof PromoFormValues, string>> = {}
+
+    if (!form.code.trim()) {
+      newErrors.code = "Promo code is required"
+    }
+
+    const percentage = Number(form.percentage)
+    if (Number.isNaN(percentage) || percentage < 1 || percentage > 100) {
+      newErrors.percentage = "Percentage must be between 1 and 100"
+    }
+
+    const count = Number(form.count)
+    if (!Number.isInteger(count) || count < 1) {
+      newErrors.count = "Promo count must be at least 1"
+    }
+
+    const minimumOrderValue = Number(form.minimumOrderValue)
+    if (Number.isNaN(minimumOrderValue) || minimumOrderValue < 0) {
+      newErrors.minimumOrderValue = "Minimum order value must be 0 or more"
+    }
+
+    const startsAtDate = new Date(form.startsAt)
+    const endsAtDate = new Date(form.endsAt)
+
+    if (Number.isNaN(startsAtDate.getTime())) {
+      newErrors.startsAt = "Valid start time is required"
+    }
+    if (Number.isNaN(endsAtDate.getTime())) {
+      newErrors.endsAt = "Valid end time is required"
+    }
+    
     if (
-      !form.code.trim() ||
-      !form.percentage.trim() ||
-      !form.count.trim() ||
-      !form.minimumOrderValue.trim() ||
-      !form.startsAt.trim() ||
-      !form.endsAt.trim()
+      !Number.isNaN(startsAtDate.getTime()) && 
+      !Number.isNaN(endsAtDate.getTime()) && 
+      endsAtDate <= startsAtDate
     ) {
+      newErrors.endsAt = "End time should be after start time"
+    }
+
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors)
       return
     }
 
@@ -70,8 +109,8 @@ const PromoDialog = () => {
         percentage: form.percentage,
         count: form.count,
         minimumOrderValue: form.minimumOrderValue,
-        startsAt: new Date(form.startsAt).toISOString(),
-        endsAt: new Date(form.endsAt).toISOString(),
+        startsAt: startsAtDate.toISOString(),
+        endsAt: endsAtDate.toISOString(),
       })
     } catch (error) {
       console.log(error)
@@ -89,18 +128,19 @@ const PromoDialog = () => {
             <div className={promoDialogStyles.fieldWrapClass}>
               <Label>Promo Code</Label>
               <Input
-                className={promoDialogStyles.inputClass}
+                className={`${promoDialogStyles.inputClass} ${errors.code ? 'border-red-500 focus-visible:ring-red-500' : ''}`}
                 type="text"
                 value={form.code}
                 placeholder="SUMMARY10"
                 onChange={(e) => updateField("code", e.target.value)}
               />
+              {errors.code && <span className="text-sm text-red-500 mt-1">{errors.code}</span>}
             </div>
 
             <div className={promoDialogStyles.fieldWrapClass}>
               <Label>Discount Percentage</Label>
               <Input
-                className={promoDialogStyles.inputClass}
+                className={`${promoDialogStyles.inputClass} ${errors.percentage ? 'border-red-500 focus-visible:ring-red-500' : ''}`}
                 type="number"
                 min={"1"}
                 max={"100"}
@@ -108,6 +148,7 @@ const PromoDialog = () => {
                 placeholder="10"
                 onChange={(e) => updateField("percentage", e.target.value)}
               />
+              {errors.percentage && <span className="text-sm text-red-500 mt-1">{errors.percentage}</span>}
             </div>
           </div>
 
@@ -115,19 +156,20 @@ const PromoDialog = () => {
             <div className={promoDialogStyles.fieldWrapClass}>
               <Label>Promo Count</Label>
               <Input
-                className={promoDialogStyles.inputClass}
+                className={`${promoDialogStyles.inputClass} ${errors.count ? 'border-red-500 focus-visible:ring-red-500' : ''}`}
                 type="number"
                 min={"1"}
                 value={form.count}
                 placeholder="100"
                 onChange={(e) => updateField("count", e.target.value)}
               />
+              {errors.count && <span className="text-sm text-red-500 mt-1">{errors.count}</span>}
             </div>
 
             <div className={promoDialogStyles.fieldWrapClass}>
               <Label>Minimum Order Value</Label>
               <Input
-                className={promoDialogStyles.inputClass}
+                className={`${promoDialogStyles.inputClass} ${errors.minimumOrderValue ? 'border-red-500 focus-visible:ring-red-500' : ''}`}
                 type="number"
                 min={"0"}
                 value={form.minimumOrderValue}
@@ -136,6 +178,7 @@ const PromoDialog = () => {
                   updateField("minimumOrderValue", e.target.value)
                 }
               />
+              {errors.minimumOrderValue && <span className="text-sm text-red-500 mt-1">{errors.minimumOrderValue}</span>}
             </div>
           </div>
 
@@ -143,21 +186,23 @@ const PromoDialog = () => {
             <div className={promoDialogStyles.fieldWrapClass}>
               <Label>Valid From</Label>
               <Input
-                className={promoDialogStyles.inputClass}
+                className={`${promoDialogStyles.inputClass} ${errors.startsAt ? 'border-red-500 focus-visible:ring-red-500' : ''}`}
                 type="datetime-local"
                 value={form.startsAt}
                 onChange={(e) => updateField("startsAt", e.target.value)}
               />
+              {errors.startsAt && <span className="text-sm text-red-500 mt-1">{errors.startsAt}</span>}
             </div>
 
             <div className={promoDialogStyles.fieldWrapClass}>
               <Label>Valid Till</Label>
               <Input
-                className={promoDialogStyles.inputClass}
+                className={`${promoDialogStyles.inputClass} ${errors.endsAt ? 'border-red-500 focus-visible:ring-red-500' : ''}`}
                 type="datetime-local"
                 value={form.endsAt}
                 onChange={(e) => updateField("endsAt", e.target.value)}
               />
+              {errors.endsAt && <span className="text-sm text-red-500 mt-1">{errors.endsAt}</span>}
             </div>
           </div>
 

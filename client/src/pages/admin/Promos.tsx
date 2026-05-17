@@ -15,19 +15,11 @@ function AdminPromos() {
         <CardHeader className={promoStyles.cardHeaderClass}>
           <CardTitle className={promoStyles.cardTitleClass}>Promos</CardTitle>
           <PromoToolbar
-          // search={search}
-          // onSearchChange={setSearch}
-          // onAddPromo={openCreateDialog}
           />
         </CardHeader>
 
         <CardContent>
           <PromoTable
-          // promos={promos}
-          // loading={loading}
-          // deletingPromoId={deletingPromoId}
-          // onEdit={openEditDialog}
-          // onDelete={removePromo}
           />
         </CardContent>
       </Card>

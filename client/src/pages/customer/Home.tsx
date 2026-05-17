@@ -12,7 +12,7 @@ function StoreHome() {
   const { data, loading, loadHome } = useCustomerHomeStore((state) => state)
 
   useEffect(() => {
-    void loadHome()
+    loadHome()
   }, [loadHome])
 
   if (loading) {
