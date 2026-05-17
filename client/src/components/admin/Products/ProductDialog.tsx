@@ -45,6 +45,7 @@ export function ProductDialog() {
 
   const {
     form,
+    errors,
     saving,
     isEditMode,
     updateField,
@@ -74,18 +75,26 @@ export function ProductDialog() {
               <Label>Title</Label>
               <Input
                 value={form.title}
+                required
                 onChange={(event) => updateField("title", event.target.value)}
                 placeholder="Title"
+                className={errors.title ? "border-destructive" : ""}
               />
+              {errors.title && (
+                <p className="mt-1 text-sm text-destructive">{errors.title}</p>
+              )}
             </div>
 
             <div className={productDialogStyles.fieldGroupClass}>
               <Label>Brand</Label>
               <Select
                 value={form.brand}
+                required
                 onValueChange={(val) => updateField("brand", val)}
               >
-                <SelectTrigger>
+                <SelectTrigger
+                  className={errors.brand ? "border-destructive" : ""}
+                >
                   <SelectValue placeholder="Brand" />
                 </SelectTrigger>
 
@@ -97,18 +106,28 @@ export function ProductDialog() {
                   ))}
                 </SelectContent>
               </Select>
+              {errors.brand && (
+                <p className="mt-1 text-sm text-destructive">{errors.brand}</p>
+              )}
             </div>
           </div>
           <div className={productDialogStyles.fieldGroupClass}>
             <Label>Description</Label>
             <Textarea
               value={form.description}
+              required
               onChange={(event) =>
                 updateField("description", event.target.value)
               }
               rows={5}
               placeholder="Description"
+              className={errors.description ? "border-destructive" : ""}
             />
+            {errors.description && (
+              <p className="mt-1 text-sm text-destructive">
+                {errors.description}
+              </p>
+            )}
           </div>
 
           <div className={productDialogStyles.twoColumnGridClass}>
@@ -116,9 +135,12 @@ export function ProductDialog() {
               <Label>Category</Label>
               <Select
                 value={form.category}
+                required
                 onValueChange={(val) => updateField("category", val)}
               >
-                <SelectTrigger>
+                <SelectTrigger
+                  className={errors.category ? "border-destructive" : ""}
+                >
                   <SelectValue placeholder="Category" />
                 </SelectTrigger>
                 <SelectContent>
@@ -129,12 +151,18 @@ export function ProductDialog() {
                   ))}
                 </SelectContent>
               </Select>
+              {errors.category && (
+                <p className="mt-1 text-sm text-destructive">
+                  {errors.category}
+                </p>
+              )}
             </div>
 
             <div className={productDialogStyles.fieldGroupClass}>
               <Label>Status</Label>
               <RadioGroup
                 value={form.status}
+                required
                 onValueChange={(value) =>
                   updateField("status", value as ProductStatus)
                 }
@@ -161,11 +189,16 @@ export function ProductDialog() {
               <Label>Price</Label>
               <Input
                 value={form.price}
+                required
                 onChange={(e) => updateField("price", e.target.value)}
                 type="number"
                 min="0"
                 placeholder="0"
+                className={errors.price ? "border-destructive" : ""}
               />
+              {errors.price && (
+                <p className="mt-1 text-sm text-destructive">{errors.price}</p>
+              )}
             </div>
 
             <div className={productDialogStyles.fieldGroupClass}>
@@ -175,19 +208,31 @@ export function ProductDialog() {
                 onChange={(e) => updateField("salePercentage", e.target.value)}
                 type="number"
                 min="0"
+                required
                 placeholder="0"
+                className={errors.salePercentage ? "border-destructive" : ""}
               />
+              {errors.salePercentage && (
+                <p className="mt-1 text-sm text-destructive">
+                  {errors.salePercentage}
+                </p>
+              )}
             </div>
 
             <div className={productDialogStyles.fieldGroupClass}>
               <Label>Stock</Label>
               <Input
                 value={form.stock}
+                required
                 onChange={(e) => updateField("stock", e.target.value)}
                 type="number"
                 min="0"
                 placeholder="0"
+                className={errors.stock ? "border-destructive" : ""}
               />
+              {errors.stock && (
+                <p className="mt-1 text-sm text-destructive">{errors.stock}</p>
+              )}
             </div>
           </div>
 
@@ -201,14 +246,22 @@ export function ProductDialog() {
             <SizeSelector selectedSizes={form.sizes} onToggle={toggleSize} />
           </div>
 
-          <ImagePicker
-            existingImages={form.existingImages}
-            newFiles={form.newFiles}
-            coverImagePublicId={form.coverImagePublicId}
-            onFilesAdd={addFiles}
-            onExistingRemove={removeExistingImage}
-            onCoverImageChange={changeCoverImage}
-          />
+          <div>
+            <ImagePicker
+              existingImages={form.existingImages}
+              newFiles={form.newFiles}
+              coverImagePublicId={form.coverImagePublicId}
+              onFilesAdd={addFiles}
+              onExistingRemove={removeExistingImage}
+              onCoverImageChange={changeCoverImage}
+              error={(errors as any).images}
+            />
+            {(errors as any).images && (
+              <p className="mt-1 text-sm text-destructive">
+                {(errors as any).images}
+              </p>
+            )}
+          </div>
 
           <div className={productDialogStyles.actionsRowClass}>
             <Button

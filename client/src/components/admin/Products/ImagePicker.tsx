@@ -11,6 +11,7 @@ type ImagePickerProps = {
   onFilesAdd: (files: FileList | null) => void
   onExistingRemove: (publicId: string) => void
   onCoverImageChange: (publicId: string) => void
+  error?: string
 }
 
 export function ImagePicker({
@@ -20,6 +21,7 @@ export function ImagePicker({
   onFilesAdd,
   onExistingRemove,
   onCoverImageChange,
+  error,
 }: ImagePickerProps) {
   const previewUrls = useMemo(
     () => newFiles.map((file) => ({ file, url: URL.createObjectURL(file) })),
@@ -37,7 +39,11 @@ export function ImagePicker({
       <div className={imageStyles.headerClass}>
         <h3 className={imageStyles.titleClass}>Images</h3>
       </div>
-      <label className={imageStyles.uploadLabelClass}>
+      <label
+        className={`${imageStyles.uploadLabelClass} ${
+          error ? "border-destructive text-destructive" : ""
+        }`}
+      >
         <ImagePlus className={imageStyles.uploadIconClass} />
         <span className={imageStyles.uploadTitleClass}>
           Upload Product Images

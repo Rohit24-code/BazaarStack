@@ -114,7 +114,7 @@ export const addProduct = asyncHandler(
     const files = (req.files as Express.Multer.File[]) || [];
 
     if (!files.length) {
-      throw new AppError(400, "At least Images are required");
+      throw new AppError(400, "At least one image is required");
     }
 
     const uploadedImages = await uploadManyBuffersToCloudinary(
