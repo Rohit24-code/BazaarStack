@@ -74,17 +74,48 @@ const useProductColumns = (): ColumnDef<Product>[] => {
 }
 
 export function ProductTable() {
-  const { products, loading } = useProductStore()
+  const { products, loading, page, limit, totalCount, setPage } = useProductStore()
   const columns = useProductColumns()
+  const totalPages = Math.ceil(totalCount / limit)
 
   return (
-    <DataTable
-      wrapClassName={tableStyles.wrapperClass}
-      columns={columns}
-      data={products}
-      loading={loading}
-      loadingMessage="Loading Products..."
-      emptyMessage="No products found!!!"
-    />
+    <div className="space-y-4">
+      <DataTable
+        wrapClassName={tableStyles.wrapperClass}
+        columns={columns}
+        data={products}
+        loading={loading}
+        loadingMessage="Loading Products..."
+        emptyMessage="No products found!!!"
+      />
+      {totalPages > 1 && (
+        <div className="flex items-center justify-between px-2">
+          <div className="text-sm text-muted-foreground">
+            Showing {(page - 1) * limit + 1} to {Math.min(page * limit, totalCount)} of {totalCount} products
+          </div>
+          <div className="flex items-center space-x-2">
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => setPage(page - 1)}
+              disabled={page <= 1 || loading}
+            >
+              Previous
+            </Button>
+            <div className="text-sm font-medium mx-2">
+              Page {page} of {totalPages}
+            </div>
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => setPage(page + 1)}
+              disabled={page >= totalPages || loading}
+            >
+              Next
+            </Button>
+          </div>
+        </div>
+      )}
+    </div>
   )
 }

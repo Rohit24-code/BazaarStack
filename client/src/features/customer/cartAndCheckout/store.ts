@@ -448,7 +448,7 @@ export const useCustomerCartAndCheckoutStore =
           amount: session.razorpay.amount,
           currency: session.razorpay.currency,
           order_id: session.razorpay.orderId,
-          name: "Monster E-commerce",
+          name: "Bazzar Stack",
           description: "Order payment",
           prefill: { name, email },
           handler: async (response) => {
@@ -483,7 +483,8 @@ export const useCustomerCartAndCheckoutStore =
         })
 
         razorpay.open()
-      } catch {
+      } catch (error){
+        console.error("CHECKOUT ERROR:", error); 
         set({ checkoutLoading: false })
         toast.error("Unable to start checkout")
       }

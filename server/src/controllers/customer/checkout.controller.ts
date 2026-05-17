@@ -116,7 +116,7 @@ export const checkoutCreateSession = asyncHandler(
       if (subTotal < foundPromo.minimumOrderValue) {
         throw new AppError(
           400,
-          "Minimum order value for this promo is not at the threesold",
+          "Minimum order value for this promo is not at the thresold",
         );
       }
 

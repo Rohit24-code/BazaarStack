@@ -71,10 +71,10 @@ async function getWishlistResponse(userId: string) {
     "products",
     "title brand price salePercentage images",
   );
-  console.log(wishlist, "produ ts");
+ 
 
   const products = (wishlist?.products || []) as Array<ProductPreview | null>;
-  console.log(products, "Asdf");
+ 
   const items = products.flatMap((productItem) => {
     if (!productItem) return [];
 
@@ -125,6 +125,7 @@ function isSameCartItem(
   color?: string,
   size?: string,
 ) {
+
   return (
     String(item.product) === productId &&
     (item.color || "") === (color || "") &&
@@ -216,8 +217,8 @@ export const updateCustomerCartIncrease = asyncHandler(
   async (req, res, next) => {
     const dbuser = await getDbUserFromReq(req);
     const productId = String(req.params.productId || "").trim();
-    const colorValue = String(req.body.color || "").trim();
-    const sizeValue = String(req.body.size || "").trim();
+    const colorValue = String(req.query.color || "").trim();
+    const sizeValue = String(req.query.size || "").trim();
 
     requireText(productId, "Product is required");
 
@@ -320,22 +321,11 @@ export const deleteCustomerCartWishlist = asyncHandler(
       return;
     }
 
-    const product = await Product.findOne({
-      _id: productId,
-      status: "active",
-    });
-
-    const foundProduct = requireFound(product, "Product not found", 404);
-
-    const { color, size } = getSelectedvariant(
-      foundProduct,
-      colorValue,
-      sizeValue,
-    );
-
     cart.items = cart.items.filter(
-      (item: CartItem) => !isSameCartItem(item, productId, color, size),
+      (item: CartItem) => !isSameCartItem(item, productId, colorValue, sizeValue),
     );
+
+  
 
     await cart.save();
     res.json(ok(await getCartResponse(String(dbUser._id))));
@@ -406,7 +396,7 @@ export const syncCustomerCartWishlist = asyncHandler(async (req, res, next) => {
   }
 
   await cart.save();
-  res.json(await getCartResponse(String(dbUser._id)));
+  res.json(ok(await getCartResponse(String(dbUser._id))));
 });
 
 export const getCustomerWishlist = asyncHandler(

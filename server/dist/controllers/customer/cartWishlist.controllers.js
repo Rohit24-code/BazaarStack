@@ -50,9 +50,9 @@ async function getCartResponse(userId) {
 }
 async function getWishlistResponse(userId) {
     const wishlist = await WishList_1.WishList.findOne({ user: userId }).populate("products", "title brand price salePercentage images");
-    console.log(wishlist, "produ ts");
+   
     const products = (wishlist?.products || []);
-    console.log(products, "Asdf");
+ 
     const items = products.flatMap((productItem) => {
         if (!productItem)
             return [];

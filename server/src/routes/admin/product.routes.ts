@@ -22,6 +22,7 @@ const upload = multer({
 export const productRouter = Router();
 
 productRouter.use(requireAuth);
+productRouter.use(requireAdmin)
 
 productRouter.get("/categories", getCategories);
 

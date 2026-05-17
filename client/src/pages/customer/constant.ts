@@ -168,3 +168,16 @@ export const homeStyles = {
     "inline-flex h-8 items-center justify-center rounded-full bg-primary/5 px-4 text-xs font-semibold text-primary opacity-0 transition-all duration-300 group-hover:bg-primary/10 group-hover:opacity-100"
   ),
 }
+
+export const orderSuccessStyles={
+  pageWrapClass : cn("flex min-h-screen items-center justify-center bg-background px-4"),
+  cardClass : cn("w-full max-w-xl space-y-5 border border-border bg-card p-8 text-center"),
+  iconWrapClass : cn("mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-primary/10 text-primary"),
+  titleClass : cn("text-2xl font-semibold text-foreground"),
+  textClass : cn("text-sm text-muted-foreground"),
+  buttonRowClass : cn("flex flex-col gap-3 sm:flex-row sm:justify-center"),
+  buttonClass : cn("rounded-none")
+}
+
+
+

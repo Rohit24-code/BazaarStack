@@ -18,4 +18,5 @@ export type ApiEnvelop<DataType> = {
   data: DataType | null
   meta?: Record<string, unknown>
   errors?: Array<{ message: string; code?: string }>
+  totalCount?: number
 }
